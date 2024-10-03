@@ -1,0 +1,9 @@
+.links {
+    color: rgb(205, 11, 11);
+ }
+ 
+ .links.active {
+     font-weight: bold;
+    color: orange;
+    text-decoration: underline;
+ }
