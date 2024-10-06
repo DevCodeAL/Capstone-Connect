@@ -1,24 +1,33 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { createUser } from '../services/itemServices';
+import { useNavigate } from 'react-router-dom';
 
 const SignUp = () => {
-const [newUser, setUser] = useState({role: '', username: '', email:'',  password: '', confirmedPassword: ''});
+const [newUser, setUser] = useState({role: '', username: '', email:'',  password: '', Confirmed_Password: ''});
 const [setNewItem, isSetNewItem] = useState([]);
 const [error, setError] = useState(null);
+const navigate = useNavigate();
 
 async function HandleFormSubmit(e) {
   e.preventDefault();
+    //Check if password is match or not
+  if(newUser.password !== newUser.Confirmed_Password){
+      alert('Password not match!');
+      return;
+  }
+
   try{
         const create_NewUser = await createUser(newUser);
         console.log('Registered Successfully!', create_NewUser.data);
         isSetNewItem([...setNewItem, create_NewUser.data]);
-        setUser({role: '', username: '', email: '', password: '', confirmedPassword: ''});
-  }catch(err){
+        setUser({role: '', username: '', email: '', password: '', Confirmed_Password: ''});
+        alert('Password is match!');
+        navigate('/login');
+  } catch(err){
       console.error('Failed to register', err.message);
   }
 }
-
 
   return (
    <>
@@ -32,11 +41,14 @@ async function HandleFormSubmit(e) {
             <label className="block text-gray-700 text-sm font-semibold mb-2" htmlFor="choose-expertise">
                 Choose Specialize
             </label>
-            <select value={newUser.role} onChange={(e)=> setUser({...newUser, role: e.target.value})} className='w-full px-4 py-2 text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-400'>
+            <select value={newUser.role} onChange={(e)=> setUser({
+              ...newUser,
+               role: e.target.value
+              })} className='w-full px-4 py-2 text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-400'>
                 <option value=''>Choose...</option>
                 <option value="Web Developer">Web Developer</option>
                 <option value="Software Developer">Sofware Developer</option>
-                <option value="Web Design">Web Design</option>
+                <option value="Web Designer">Web Designer</option>
                 <option value="UI/UX">UI/UX</option>
             </select>
         </div>
@@ -50,7 +62,10 @@ async function HandleFormSubmit(e) {
               id="username"
               type="text"
               value={newUser.username}
-              onChange={(e)=> setUser({...newUser, username: e.target.value})}
+              onChange={(e)=> setUser({
+                ...newUser,
+                 username: e.target.value
+                })}
               className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-400"
               placeholder="Enter your username"
               required
@@ -66,7 +81,10 @@ async function HandleFormSubmit(e) {
               id="email"
               type="email"
               value={newUser.email}
-              onChange={(e)=> setUser({...newUser, email: e.target.value})}
+              onChange={(e)=> setUser({
+                ...newUser,
+                 email: e.target.value
+              })}
               className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-400"
               placeholder="Enter your email"
               required
@@ -82,7 +100,10 @@ async function HandleFormSubmit(e) {
               id="password"
               type="password"
               value={newUser.password}
-              onChange={(e)=> setUser({...newUser, password: e.target.value})}
+              onChange={(e)=> setUser({
+                ...newUser, 
+                   password: e.target.value
+              })}
               className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-400"
               placeholder="Enter your password"
               required
@@ -97,8 +118,11 @@ async function HandleFormSubmit(e) {
             <input
               id="confirm-password"
               type="password"
-              value={newUser.confirmedPassword}
-              onChange={(e)=> setUser({...newUser, confirmedPassword: e.target.value})}
+              value={newUser.Confirmed_Password}
+              onChange={(e)=> setUser({
+                ...newUser, 
+                Confirmed_Password: e.target.value
+              })}
               className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-400"
               placeholder="Confirm your password"
             />

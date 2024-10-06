@@ -28,7 +28,7 @@ async function collection() {
 }
 
 // Function to connect to the database
-async function connectToDb() {
+async function Database_Connection() {
     try {
         await mongoose.connect(MONGODB_URI);
         await collection();  // Call the function to create the collection
@@ -39,7 +39,7 @@ async function connectToDb() {
 }
 
 // Initialize the database connection
-connectToDb();
+Database_Connection();
 
 // Start the server
 app.listen(PORT, () => {
