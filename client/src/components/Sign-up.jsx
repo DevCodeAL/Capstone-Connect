@@ -1,29 +1,90 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { createUser } from '../services/itemServices';
 import { useNavigate } from 'react-router-dom';
+import IsLoading from '../modal/submitFormLoading';
 
 const SignUp = () => {
 const [newUser, setUser] = useState({role: '', username: '', email:'',  password: '', Confirmed_Password: ''});
 const [setNewItem, isSetNewItem] = useState([]);
-const [error, setError] = useState(null);
+const [error, setError] = useState({role: '', username: '', email:'',  password: '', Confirmed_Password: ''});
+const [loading, setLoading] = useState(false);
 const navigate = useNavigate();
 
+//Handle the input onchange
+const onInputChange = (e)=>{
+  const {name, value} = e.target;
+    setUser((prev)=> ({
+      ...prev,
+      [name]: value,
+    }));
+    validateInput(e);
+}
+
+//Reminder input and password validation
+const validateInput = (e)=>{
+    let {name, value} = e.target;
+    setError((prev)=>{
+      const stateObj = {...prev, [name]: ''}
+        switch(name){
+          case 'role':
+            if(!value){
+              stateObj[name] = 'Please choose specialize.';
+            }
+          break;
+
+          case 'username':
+            if(!value){
+              stateObj[name] = 'Please enter username.';
+            }
+            break;
+
+            case 'email':
+              if(!value){
+                stateObj[name] = 'Please enter email.';
+              }
+              break;
+              
+            case 'password':
+              if(!value){
+                stateObj[name] = 'Please enter password';
+              }else if(newUser.Confirmed_Password && value !== newUser.Confirmed_Password){
+                  stateObj['Confirmed_Password'] = 'Password and confirm does not match.';
+              } else{
+                stateObj['Confirmed_Password'] = newUser.Confirmed_Password ? '' : error.Confirmed_Password;
+              }
+            break;
+
+            case 'Confirmed_Password':
+              if(!value){
+                stateObj[name] = 'Please enter confirm password.';
+              } else if(newUser.password && value !== newUser.password){
+                stateObj[name] = 'Password and confirmed password does not match.';
+              }
+            break;
+
+            default:
+              break;
+        }
+
+        return stateObj;
+    });
+}
+
+
+//Handle the form submit
 async function HandleFormSubmit(e) {
   e.preventDefault();
-    //Check if password is match or not
-  if(newUser.password !== newUser.Confirmed_Password){
-      alert('Password not match!');
-      return;
-  }
-
+  setLoading(true);
   try{
         const create_NewUser = await createUser(newUser);
-        console.log('Registered Successfully!', create_NewUser.data);
-        isSetNewItem([...setNewItem, create_NewUser.data]);
-        setUser({role: '', username: '', email: '', password: '', Confirmed_Password: ''});
-        alert('Password is match!');
-        navigate('/login');
+        setTimeout(()=>{
+          console.log('Registered Successfully!', create_NewUser.data);
+          isSetNewItem([...setNewItem, create_NewUser.data]);
+          setUser({role: '', username: '', email: '', password: '', Confirmed_Password: ''});
+          navigate('/login');
+          setLoading(false);
+        }, 2000);
   } catch(err){
       console.error('Failed to register', err.message);
   }
@@ -34,23 +95,20 @@ async function HandleFormSubmit(e) {
      <div className="flex items-center justify-center min-h-screen bg-gray-100">
       <div className="bg-white p-8 rounded-lg shadow-lg w-full max-w-sm">
         <h2 className="text-2xl font-bold mb-6 text-gray-800 text-center">Sign Up</h2>
-
         <form onSubmit={HandleFormSubmit}>
         {/* Choose Specialize     */}
          <div className='mb-4'>
             <label className="block text-gray-700 text-sm font-semibold mb-2" htmlFor="choose-expertise">
                 Choose Specialize
             </label>
-            <select value={newUser.role} onChange={(e)=> setUser({
-              ...newUser,
-               role: e.target.value
-              })} className='w-full px-4 py-2 text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-400'>
+            <select name='role' value={newUser.role} onChange={onInputChange} onBlur={validateInput} className='w-full px-4 py-2 text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-400'>
                 <option value=''>Choose...</option>
                 <option value="Web Developer">Web Developer</option>
                 <option value="Software Developer">Sofware Developer</option>
                 <option value="Web Designer">Web Designer</option>
                 <option value="UI/UX">UI/UX</option>
             </select>
+          {error.role && <span className='text-red-500'>{error.role}</span>}
         </div>
 
           {/* Username */}
@@ -59,17 +117,16 @@ async function HandleFormSubmit(e) {
               Username
             </label>
             <input
-              id="username"
+              name="username"
               type="text"
               value={newUser.username}
-              onChange={(e)=> setUser({
-                ...newUser,
-                 username: e.target.value
-                })}
+              onChange={onInputChange}
+              onBlur={validateInput}
               className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-400"
               placeholder="Enter your username"
               required
             />
+            {error.username && <span className='text-red-500'>{error.username}</span>}
           </div>
 
           {/* Email */}
@@ -78,17 +135,16 @@ async function HandleFormSubmit(e) {
               Email
             </label>
             <input
-              id="email"
+              name="email"
               type="email"
               value={newUser.email}
-              onChange={(e)=> setUser({
-                ...newUser,
-                 email: e.target.value
-              })}
+              onChange={onInputChange}
+              onBlur={validateInput}
               className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-400"
               placeholder="Enter your email"
               required
             />
+            {error.email && <span className='text-red-500'>{error.email}</span>}
           </div>
 
           {/* Password */}
@@ -97,47 +153,47 @@ async function HandleFormSubmit(e) {
               Password
             </label>
             <input
-              id="password"
+              name="password"
               type="password"
               value={newUser.password}
-              onChange={(e)=> setUser({
-                ...newUser, 
-                   password: e.target.value
-              })}
+              onChange={onInputChange}
+              onBlur={validateInput}
               className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-400"
               placeholder="Enter your password"
               required
             />
+            {error.password && <span className='text-red-500'>{error.password}</span>}
           </div>
 
           {/* Confirm Password */}
           <div className="mb-4">
-            <label className="block text-gray-700 text-sm font-semibold mb-2" htmlFor="confirm-password">
+            <label className="block text-gray-700 text-sm font-semibold mb-2" htmlFor="Confirmed_Password">
               Confirm Password
             </label>
             <input
-              id="confirm-password"
+              name="Confirmed_Password"
               type="password"
               value={newUser.Confirmed_Password}
-              onChange={(e)=> setUser({
-                ...newUser, 
-                Confirmed_Password: e.target.value
-              })}
+              onChange={onInputChange}
+              onBlur={validateInput}
               className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-400"
               placeholder="Confirm your password"
             />
+            {error.Confirmed_Password && (<span className='text-red-500'>{error.Confirmed_Password}</span>)}
           </div>
 
           {/* Submit Button */}
           <div className="mt-6">
             <button
               type="submit"
+              disabled={loading}
               className="w-full bg-indigo-500 text-white py-2 px-4 rounded-lg hover:bg-indigo-600 transition duration-300"
-            >
-              Sign Up
-            </button>
+            >{loading ? 'Submitting...' : 'Sign Up'}</button>
           </div>
         </form>
+
+            {/* {Spinner Loading} */}
+            {loading && <IsLoading/>}
 
         <p className="text-center text-gray-600 mt-4">
           Already have an account? <Link to={'/login'} className="text-indigo-500 hover:underline">Log In</Link>

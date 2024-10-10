@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 const Login = ()=>{
   const [isUsername, setUsername] = useState('');
   const [isPassword, setPassword] = useState('');
+  const [loading, IsLoading] = useState(false);
   const [isError, setError] = useState(null);
 
   return (
