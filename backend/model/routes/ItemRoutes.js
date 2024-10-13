@@ -23,6 +23,34 @@ router.post('/register', async (req, res)=>{
    }
 });
 
+//This is for Login users
+router.post('/login', async (req, res) => {
+  const { username, password } = req.body;
+
+  try {
+     const user = await RegistrationModel.findOne({ username: username });
+
+     if (!user) {
+        return res.status(404).json({ message: 'User not found.' });
+     }
+
+     // Compare passwords
+     const isMatch = await bycrypt.compare(password, user.password);
+
+     if (!isMatch) {
+        return res.status(400).json({ message: 'Invalid credentials.' });
+     }
+
+     // Return success message
+     res.status(200).json({ message: 'Login successful', userId: user._id });
+  } catch (err) {
+     console.error('Login failed', err.message);
+     res.status(500).json({ message: err.message });
+  }
+});
+
+
+
 
 //Read
 router.get('/items', async (req, res) => {
