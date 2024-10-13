@@ -4,6 +4,10 @@ import axios from "axios"
 const API_Url_SignUp = 'http://localhost:5000/api/register';
 export const createUser = (new_user)=> axios.post(API_Url_SignUp, new_user);
 
+//Api for Login user
+const API_Url_Login = 'http://localhost:5000/api/login';
+export const getUserId = (data) => axios.post(API_Url_Login, data); 
+
 // Api for dataset
 const API_Url = 'http://localhost:5000/api/items';  // Ensure this is correct
 export const getItems = ()=> axios.get(API_Url);
