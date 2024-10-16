@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { createUser } from '../services/itemServices';
 import { useNavigate } from 'react-router-dom';
-import IsLoading from '../modal/submitFormLoading';
+import IsLoading from '../modal/modal-error-alert/submitFormLoading';
 
 const SignUp = () => {
 const [newUser, setUser] = useState({role: '', username: '', email:'',  password: '', Confirmed_Password: ''});
@@ -71,7 +71,6 @@ const validateInput = (e)=>{
     });
 }
 
-
 //Handle the form submit
 async function HandleFormSubmit(e) {
   e.preventDefault();
@@ -96,7 +95,7 @@ async function HandleFormSubmit(e) {
       <div className="bg-white p-8 rounded-lg shadow-lg w-full max-w-sm">
         <h2 className="text-2xl font-bold mb-6 text-gray-800 text-center">Sign Up</h2>
         <form onSubmit={HandleFormSubmit}>
-        {/* Choose Specialize     */}
+        {/* Choose Specialize */}
          <div className='mb-4'>
             <label className="block text-gray-700 text-sm font-semibold mb-2" htmlFor="choose-expertise">
                 Choose Specialize

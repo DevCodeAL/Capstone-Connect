@@ -2,16 +2,19 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { getUserId } from '../services/itemServices';
 import { useNavigate } from 'react-router-dom';
+import LoginAlert from '../modal/modal-error-alert/login-alert';
 
 const Login = ()=>{
   const [isUser, setUser] = useState({username: '', password: ''});
-  const [loading, setLoading] = useState(false);
   const [isError, setError] = useState({username: '', password: ''});
+  const [loading, setLoading] = useState(false);
+  const [isClose, setClose] = useState(false);
   const navigate = useNavigate();
 
 async function handleValidationForm(e) {
 e.preventDefault();
   setLoading(true);
+  setClose(true);
   //This logic is for creating a login form verification
   try{
         const response = await getUserId(isUser);
@@ -23,6 +26,10 @@ e.preventDefault();
         setLoading(false);
         },2000);
   }catch(err){
+    //Logic for creating a Success or error for username and password
+    setTimeout(()=>{
+      setClose(false);
+    }, 8000);
         console.error('Failed to get userId:', err.message);
   }
 }
@@ -115,6 +122,8 @@ e.preventDefault();
             >{loading ? 'Logging...' : 'Login'}</button>
           </div>
         </form>
+            {/* This modal is for alert if correct username or password */}
+            {isClose ? <LoginAlert/> : null}
 
         <p className="text-center text-gray-600 mt-4">
             <Link to={'/forgot-pass'} className="text-indigo-500 hover:underline">Forgot Password?</Link>
