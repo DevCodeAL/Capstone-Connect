@@ -32,6 +32,7 @@ router.post('/login', async (req, res) => {
 
      if (!user) {
         return res.status(404).json({ message: 'User not found.' });
+        
      }
 
      // Compare passwords
@@ -42,7 +43,7 @@ router.post('/login', async (req, res) => {
      }
 
      // Return success message
-     res.status(200).json({ message: 'Login successful', userId: user._id });
+     res.status(200).json({ message: 'Login successful', userId: user._id, userRole: user.role, userName: user.username, userEmail: user.email });
   } catch (err) {
      console.error('Login failed', err.message);
      res.status(500).json({ message: err.message });
