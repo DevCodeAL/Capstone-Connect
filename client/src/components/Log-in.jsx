@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { getUserId } from '../services/itemServices';
 import { useNavigate } from 'react-router-dom';
 import LoginAlert from '../modal/modal-error-alert/login-alert';
 import LoginLoading from '../modal/modal-error-alert/loginLoading';
+import { useAuth } from '../AutContext';
 
 const Login = ()=>{
+  const { login } = useAuth();
   const [isUser, setUser] = useState({username: '', password: ''});
   const [isError, setError] = useState({username: '', password: ''});
   const [loading, setLoading] = useState(false);
@@ -13,18 +14,23 @@ const Login = ()=>{
   const [alertMessage, setAlertMessage] = useState('');
   const navigate = useNavigate();
 
+  //This function pass in modal to refresh a login page and clear all errors
+  const onCloseModal = ()=>{
+    window.location.reload();
+  }
+
 async function handleValidationForm(e) {
 e.preventDefault();
   //This logic for login form verification 
+  const {username, password} = isUser;
   try{
-        const response = await getUserId(isUser);
+        const response = await login(username, password);
         console.log('Get user', response.data);
-        setAlertMessage(response.data.message);
         setLoading(true);
         setTimeout(()=>{
          //Clear input fields after login
         setUser({username: '', password: ''});
-        navigate('/dashboard');
+        navigate('/');
         },2000);
 
   } catch(err){
@@ -73,7 +79,7 @@ e.preventDefault();
 
   return (
    <>
-     <div className="flex items-center justify-center min-h-screen bg-gray-100">
+     <div className="flex items-center justify-center min-h-screen bg-gray-100 ">
       <div className="bg-white p-8 rounded-lg shadow-lg w-full max-w-sm">
         <h2 className="text-2xl font-bold mb-6 text-gray-800 text-center">Login</h2>
 
@@ -124,7 +130,7 @@ e.preventDefault();
           </div>
         </form>
             {/* This modal is for alert if correct username or password */}
-            {isModalView && <LoginAlert children={alertMessage}/>}
+            {isModalView && <LoginAlert onClose={onCloseModal} children={alertMessage}/>}
             {loading && <LoginLoading/>}
 
         <p className="text-center text-gray-600 mt-4">
@@ -132,7 +138,7 @@ e.preventDefault();
         </p>
 
         <p className="text-center text-gray-600 mt-4">
-          Dont have an account? <Link to={'/'} className="text-indigo-500 hover:underline">Sign Up</Link>
+          Dont have an account? <Link to={'/sign-up'} className="text-indigo-500 hover:underline">Sign Up</Link>
         </p>
       </div>
     </div>

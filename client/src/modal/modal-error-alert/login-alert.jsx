@@ -1,10 +1,11 @@
 import { useState } from "react";
 
-const LoginAlert = ({children})=>{
+const LoginAlert = ({children, onClose})=>{
     const [alert, setAlert] = useState(false);
 
     const handleClose = ()=>{
         setAlert(!alert);
+        onClose();
     }
     
    return(

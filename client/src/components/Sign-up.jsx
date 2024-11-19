@@ -3,11 +3,14 @@ import { Link } from 'react-router-dom';
 import { createUser } from '../services/itemServices';
 import { useNavigate } from 'react-router-dom';
 import IsLoading from '../modal/modal-error-alert/submitFormLoading';
+import SignAlert from '../modal/modal-error-alert/sign-alert';
 
 const SignUp = () => {
 const [newUser, setUser] = useState({role: '', username: '', email:'',  password: '', Confirmed_Password: ''});
 const [setNewItem, isSetNewItem] = useState([]);
 const [error, setError] = useState({role: '', username: '', email:'',  password: '', Confirmed_Password: ''});
+const [alertMessage, setAlertMessage] = useState('');
+const [setModal, setModalView] = useState(false);
 const [loading, setLoading] = useState(false);
 const navigate = useNavigate();
 
@@ -71,32 +74,36 @@ const validateInput = (e)=>{
     });
 }
 
+const onClose = ()=>{
+    window.location.reload();
+}
+
 //Handle the form submit
 async function HandleFormSubmit(e) {
   e.preventDefault();
-  setLoading(true);
   try{
-        const create_NewUser = await createUser(newUser);
+        const response = await createUser(newUser);
+        console.log('Registered Successfully!', response.data);
+        isSetNewItem([...setNewItem, response.data]);
+        setLoading(true);
         setTimeout(()=>{
-          console.log('Registered Successfully!', create_NewUser.data);
-          isSetNewItem([...setNewItem, create_NewUser.data]);
           setUser({role: '', username: '', email: '', password: '', Confirmed_Password: ''});
           navigate('/login');
-          setLoading(false);
         }, 2000);
   } catch(err){
-      console.error('Failed to register', err.message);
+      setAlertMessage(err.response.data.message);
+      setModalView(true);
   }
 }
 
   return (
    <>
      <div className="flex items-center justify-center min-h-screen bg-gray-100">
-      <div className="bg-white p-8 rounded-lg shadow-lg w-full max-w-sm">
+      <div className="bg-white p-8 m-8 rounded-lg shadow-lg w-full max-w-screen-sm">
         <h2 className="text-2xl font-bold mb-6 text-gray-800 text-center">Sign Up</h2>
-        <form onSubmit={HandleFormSubmit}>
+        <form className='flex flex-wrap items-center justify-center' onSubmit={HandleFormSubmit}>
         {/* Choose Specialize */}
-         <div className='mb-4'>
+         <div className='mx-6 my-2 w-60'>
             <label className="block text-gray-700 text-sm font-semibold mb-2" htmlFor="choose-expertise">
                 Choose Specialize
             </label>
@@ -111,7 +118,7 @@ async function HandleFormSubmit(e) {
         </div>
 
           {/* Username */}
-          <div className="mb-4">
+          <div className="mx-6 my-2 w-60">
             <label className="block text-gray-700 text-sm font-semibold mb-2" htmlFor="username">
               Username
             </label>
@@ -129,7 +136,7 @@ async function HandleFormSubmit(e) {
           </div>
 
           {/* Email */}
-          <div className="mb-4">
+          <div className="mx-6  my-2 w-60">
             <label className="block text-gray-700 text-sm font-semibold mb-2" htmlFor="email">
               Email
             </label>
@@ -147,7 +154,7 @@ async function HandleFormSubmit(e) {
           </div>
 
           {/* Password */}
-          <div className="mb-4">
+          <div className="mx-6  my-2 w-60">
             <label className="block text-gray-700 text-sm font-semibold mb-2" htmlFor="password">
               Password
             </label>
@@ -165,7 +172,7 @@ async function HandleFormSubmit(e) {
           </div>
 
           {/* Confirm Password */}
-          <div className="mb-4">
+          <div className="mx-6 my-2 w-60">
             <label className="block text-gray-700 text-sm font-semibold mb-2" htmlFor="Confirmed_Password">
               Confirm Password
             </label>
@@ -182,7 +189,7 @@ async function HandleFormSubmit(e) {
           </div>
 
           {/* Submit Button */}
-          <div className="mt-6">
+          <div className="mt-8 mx-6 w-60">
             <button
               type="submit"
               disabled={loading}
@@ -193,6 +200,7 @@ async function HandleFormSubmit(e) {
 
             {/* {Spinner Loading} */}
             {loading && <IsLoading/>}
+            {setModal && <SignAlert onClose={onClose} children={alertMessage}/>}
 
         <p className="text-center text-gray-600 mt-4">
           Already have an account? <Link to={'/login'} className="text-indigo-500 hover:underline">Log In</Link>
