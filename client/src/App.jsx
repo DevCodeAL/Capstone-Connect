@@ -24,7 +24,7 @@ function App() {
 
   const ProtectedRoute = ({ children }) => {
     if (loading) return <p>Loading...</p>; // Show loading state while fetching user
-    if (!user) return <Navigate to="/login" />; // Redirect to login if no user
+    if (!user) return <Navigate to="/home" />; // Redirect to login if no user
     return children; // Render children if authenticated
   };
 
@@ -34,19 +34,17 @@ function App() {
         <Header />
         <main>
           <Routes>
-            {/* Protected Route */}
-            <Route
-              path="/home"
-              element={
-                <ProtectedRoute>
-                  <Home />
-                </ProtectedRoute>
-              }
-            />
-            <Route path="/browse" element={
-              <ProtectedRoute>
-                <BrowseProject />
-            </ProtectedRoute>} />
+            {/* Public Route */}
+            <Route path="/home" element={<Home />}/>
+            <Route path="/browse" element={<BrowseProject />} />
+            <Route path="/about" element={<About /> }/>
+            <Route path="/login" element={<Login />} />
+            <Route path="/sign-up" element={<SignUp />} />
+            <Route path="/forgot-pass" element={<ForgotPass />} />
+            <Route path="/create-new-pass" element={<CreateNewPass />} />
+            <Route path="/dashboard" element={<Dashboard />} />
+
+             {/* For Authenticated user Route */}
             <Route path="/upload-project" element={
               <ProtectedRoute>
                 <UploadProject />
@@ -60,17 +58,9 @@ function App() {
               <ProtectedRoute>
                 <MyProfile />
               </ProtectedRoute>} />
-            <Route path="/about" element={
-              <ProtectedRoute>
-                <About />
-                </ProtectedRoute>} />
-            {/* Public Route */}
-            <Route path="/login" element={<Login />} />
-            <Route path="/sign-up" element={<SignUp />} />
-            <Route path="/forgot-pass" element={<ForgotPass />} />
-            <Route path="/create-new-pass" element={<CreateNewPass />} />
-            <Route path="/dashboard" element={<Dashboard />} />
-            <Route path="/" element={<Navigate to={user ? "/home" : "/login"} />} />
+
+              {/* Condition for user if Authenticated or not */}
+              <Route path="/" element={<Navigate to={user ? "/home" : '/home'} />}/>
           </Routes>
         </main>
       </div>

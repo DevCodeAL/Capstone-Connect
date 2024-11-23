@@ -9,7 +9,7 @@ const Profile = () => {
   // Redirect to '/' if no user is logged in
   useEffect(() => {
     if (!loading && !user) {
-      navigate('/'); // Redirect when not authenticated
+      navigate('/home'); // Redirect when not authenticated
     }
   }, [user, loading, navigate]);
 

@@ -5,13 +5,14 @@ import { useNavigate } from 'react-router-dom';
 import IsLoading from '../modal/modal-error-alert/submitFormLoading';
 import SignAlert from '../modal/modal-error-alert/sign-alert';
 
-const SignUp = () => {
+const SignUp = ({SignUpModal}) => {
 const [newUser, setUser] = useState({role: '', username: '', email:'',  password: '', Confirmed_Password: ''});
 const [setNewItem, isSetNewItem] = useState([]);
 const [error, setError] = useState({role: '', username: '', email:'',  password: '', Confirmed_Password: ''});
 const [alertMessage, setAlertMessage] = useState('');
 const [setModal, setModalView] = useState(false);
 const [loading, setLoading] = useState(false);
+const [close, setOpen] = useState(false);
 const navigate = useNavigate();
 
 //Handle the input onchange
@@ -89,6 +90,7 @@ async function HandleFormSubmit(e) {
         setTimeout(()=>{
           setUser({role: '', username: '', email: '', password: '', Confirmed_Password: ''});
           navigate('/login');
+          SignUpModal(setOpen(true));
         }, 2000);
   } catch(err){
       setAlertMessage(err.response.data.message);
@@ -98,8 +100,6 @@ async function HandleFormSubmit(e) {
 
   return (
    <>
-     <div className="flex items-center justify-center min-h-screen bg-gray-100">
-      <div className="bg-white p-8 m-8 rounded-lg shadow-lg w-full max-w-screen-sm">
         <h2 className="text-2xl font-bold mb-6 text-gray-800 text-center">Sign Up</h2>
         <form className='flex flex-wrap items-center justify-center' onSubmit={HandleFormSubmit}>
         {/* Choose Specialize */}
@@ -205,8 +205,6 @@ async function HandleFormSubmit(e) {
         <p className="text-center text-gray-600 mt-4">
           Already have an account? <Link to={'/login'} className="text-indigo-500 hover:underline">Log In</Link>
         </p>
-      </div>
-    </div>
    </>
   );
 };

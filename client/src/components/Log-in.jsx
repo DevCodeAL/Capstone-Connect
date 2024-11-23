@@ -5,13 +5,15 @@ import LoginAlert from '../modal/modal-error-alert/login-alert';
 import LoginLoading from '../modal/modal-error-alert/loginLoading';
 import { useAuth } from '../AutContext';
 
-const Login = ()=>{
+const Login = ({HandleEventClose, OpenModal})=>{
   const { login } = useAuth();
   const [isUser, setUser] = useState({username: '', password: ''});
   const [isError, setError] = useState({username: '', password: ''});
   const [loading, setLoading] = useState(false);
   const [isModalView, setModalView] = useState(false);
   const [alertMessage, setAlertMessage] = useState('');
+   //Set the function to close the modal after submition
+   const [close, setClose] = useState(false);
   const navigate = useNavigate();
 
   //This function pass in modal to refresh a login page and clear all errors
@@ -30,9 +32,9 @@ e.preventDefault();
         setTimeout(()=>{
          //Clear input fields after login
         setUser({username: '', password: ''});
-        navigate('/');
+        navigate('/home');
+        HandleEventClose(setClose(true));
         },2000);
-
   } catch(err){
         setAlertMessage(err.response.data.message);
         setModalView(true);
@@ -79,10 +81,7 @@ e.preventDefault();
 
   return (
    <>
-     <div className="flex items-center justify-center min-h-screen bg-gray-100 ">
-      <div className="bg-white p-8 rounded-lg shadow-lg w-full max-w-sm">
         <h2 className="text-2xl font-bold mb-6 text-gray-800 text-center">Login</h2>
-
         <form onSubmit={handleValidationForm}>
           {/* Username */}
           <div className="mb-4">
@@ -140,8 +139,6 @@ e.preventDefault();
         <p className="text-center text-gray-600 mt-4">
           Dont have an account? <Link to={'/sign-up'} className="text-indigo-500 hover:underline">Sign Up</Link>
         </p>
-      </div>
-    </div>
    </>
   );
 };

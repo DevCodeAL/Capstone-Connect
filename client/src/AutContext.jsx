@@ -14,7 +14,7 @@ export const AuthProvider = ({ children }) => {
     try {
       const decodeToken = jwtDecode(token);
       const currentTime = Date.now() / 1000;
-      return decodeToken.exp < currentTime;  // Correct comparison
+      return decodeToken.exp < currentTime; 
     } catch (error) {
       console.error("Error decoding token!", error);
       return true; // If token is invalid, consider it expired
@@ -87,6 +87,7 @@ export const AuthProvider = ({ children }) => {
     setToken(null);
     setUser(null);
   };
+
 
   // Provide context to children
   return (
