@@ -15,31 +15,19 @@ app.use(cors());
 app.use(express.json());  // Use express.json() to parse JSON payloads
 app.use('/api', ItemRoutes);
 
-// Function to create a collection
-async function collection() {
-    try {
-        // Access the MongoDB database using Mongoose's connection instance
-        const db = mongoose.connection.db;  // Correct way to access the database
-        const collection = await db.createCollection('UserDb');  // Create the collection
-        console.log('Created collection successfully', collection.collectionName);  // Log the collection name
-    } catch (err) {
-        console.error('Error creating collection', err);  // Log any errors that occur
-    }
-}
 
 // Function to connect to the database
 async function Database_Connection() {
     try {
         await mongoose.connect(MONGODB_URI);
-        await collection();  // Call the function to create the collection
-        console.log('Connected to MongoDB');  // Log successful connection
+        console.log('Successfully connected to MongoDB');  // Log successful connection
     } catch (err) {
         console.error('Connection error', err);  // Log any connection errors
     }
 }
 
-// Initialize the database connection
-Database_Connection();
+    // Initialize the database connection
+    Database_Connection();
 
 // Start the server
 app.listen(PORT, () => {

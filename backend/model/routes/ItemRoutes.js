@@ -1,6 +1,7 @@
 import express from 'express';
 import Item from '../models/Item.js';
 import RegistrationModel from '../models/signup-model.js';
+import authMiddleware from '../../middleware/authMiddleware.js';
 import bycrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 const router = express.Router();
@@ -12,11 +13,19 @@ router.post('/register', async (req, res)=>{
     if(!role || !username || !email || !password){
       return res.status(400).json({message: 'All fields required!'});
     }
-    const HashPassword = await bycrypt.hash(password, 10);
-    const create_newUser = new RegistrationModel({role, username, email, password: HashPassword});
-    const save_newUser = await create_newUser.save();
-    console.log('Registered Successfully!', save_newUser);
-    res.status(200).json(save_newUser);
+
+     //Check if email is duplicate
+     const userEmail  = await RegistrationModel.findOne({ email });
+     if(userEmail){
+      return res.status(404).json({message: 'Email is already exist!'});
+     } 
+
+        const HashPassword = await bycrypt.hash(password, 10);
+        const create_newUser = new RegistrationModel({role, username, email, password: HashPassword});
+        const save_newUser = await create_newUser.save();
+        console.log('Registered Successfully!', save_newUser);
+        res.status(200).json(save_newUser);
+    
    }catch(err){
       console.error('Failed to register', err.message);
       res.status(500).json({message: err.message});
@@ -41,18 +50,47 @@ router.post('/login', async (req, res) => {
      if (!isMatch) {
         return res.status(400).json({ message: 'Invalid credentials.' });
      }
+      // Create a JWT token
+      const token = jwt.sign(
+        { userId: user._id },
+          process.env.JWT_SECRET,
+        { expiresIn: process.env.JWT_EXPIRES_IN }
+      );
+  
+      // Send the token along with user details
+      res.status(200).json({
+        message: 'Login successful',
+        token,
+        user: {
+          userId: user._id,
+          userRole: user.role,
+          userName: user.username,
+          userEmail: user.email
+        }
+      });
 
-     // Return success message
-     res.status(200).json({ message: 'Login successful', userId: user._id, userRole: user.role, userName: user.username, userEmail: user.email });
   } catch (err) {
      console.error('Login failed', err.message);
      res.status(500).json({ message: err.message });
   }
 });
 
+//This is for UserID Profile
+// Protected route
+router.get('/profile', authMiddleware, async (req, res)=>{
+      try{
+        const user = await RegistrationModel.findById(req.userId);
+        res.status(200).json({message: {user}});
+      }catch(err){
+        res.status(500).json({ message: 'Server error' });
+      }
+});
 
 
 
+
+
+///////////////////////////////////////////////////////////////
 //Read
 router.get('/items', async (req, res) => {
   try {
