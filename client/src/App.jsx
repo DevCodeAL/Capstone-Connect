@@ -13,6 +13,7 @@ import FeedBack from './components/Feedback';
 import MyProfile from './components/MyProfile';
 import Header from './components/Header';
 import { useAuth } from './AutContext';
+import SideBar from './components/SideBar';
 
 function App() {
   const { user, loading } = useAuth();
@@ -43,6 +44,7 @@ function App() {
             <Route path="/forgot-pass" element={<ForgotPass />} />
             <Route path="/create-new-pass" element={<CreateNewPass />} />
             <Route path="/dashboard" element={<Dashboard />} />
+            <Route path='sidebar' element={<SideBar/>}/>
 
              {/* For Authenticated user Route */}
             <Route path="/upload-project" element={

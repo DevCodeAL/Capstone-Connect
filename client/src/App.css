@@ -12,6 +12,16 @@
     text-decoration: underline;
  }
 
+ .sidelinks:hover{
+  color: rgb(12, 223, 156);
+  transition-duration: 1s;
+} 
+
+.sidelinks.active {
+  color: orange;
+  text-decoration: underline;
+}
+
  @keyframes marquee {
    0% {
      transform: translateX(0);

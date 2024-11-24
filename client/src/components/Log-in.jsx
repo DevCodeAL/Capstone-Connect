@@ -32,7 +32,7 @@ e.preventDefault();
         setTimeout(()=>{
          //Clear input fields after login
         setUser({username: '', password: ''});
-        navigate('/home');
+        navigate('/browse');
         HandleEventClose(setClose(true));
         },2000);
   } catch(err){

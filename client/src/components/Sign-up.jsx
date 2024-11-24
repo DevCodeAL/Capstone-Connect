@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { createUser } from '../services/itemServices';
-import { useNavigate } from 'react-router-dom';
 import IsLoading from '../modal/modal-error-alert/submitFormLoading';
 import SignAlert from '../modal/modal-error-alert/sign-alert';
 
@@ -13,7 +12,6 @@ const [alertMessage, setAlertMessage] = useState('');
 const [setModal, setModalView] = useState(false);
 const [loading, setLoading] = useState(false);
 const [close, setOpen] = useState(false);
-const navigate = useNavigate();
 
 //Handle the input onchange
 const onInputChange = (e)=>{
@@ -89,7 +87,6 @@ async function HandleFormSubmit(e) {
         setLoading(true);
         setTimeout(()=>{
           setUser({role: '', username: '', email: '', password: '', Confirmed_Password: ''});
-          navigate('/login');
           SignUpModal(setOpen(true));
         }, 2000);
   } catch(err){

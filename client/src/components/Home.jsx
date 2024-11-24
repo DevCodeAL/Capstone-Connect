@@ -19,7 +19,7 @@ const Home = () => {
                 <h1 className="animate-slidein [animation-delay:0s]">Capstone Connect</h1>
               </div> 
               <div className="text-4xl">
-                <h2 className="animate-slidein [animation-delay:0.5s]">A Collaborative Student Platform for Project Sharing</h2>
+                <h2 className="animate-slidein [animation-delay:0.5s]">A Collaborative Student Platform for Project Sharing and Feedback</h2>
               </div>
               <div className="my-10">
                 <h3 className="text-2xl animate-slidein [animation-delay:1s]">"Share Learn and Grow Together"</h3>
@@ -118,7 +118,7 @@ const Home = () => {
           <li className="flex items-center">
             <span className="w-8 h-8 flex justify-center items-center bg-blue-500 text-white rounded-full mr-3">
               <svg className="w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
               </svg>
             </span>
             <p className="text-gray-700">Foster collaboration among students.</p>
@@ -126,7 +126,7 @@ const Home = () => {
           <li className="flex items-center">
             <span className="w-8 h-8 flex justify-center items-center bg-blue-500 text-white rounded-full mr-3">
               <svg className="w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
               </svg>
             </span>
             <p className="text-gray-700">Build networks and expand professional connections.</p>
@@ -134,7 +134,7 @@ const Home = () => {
           <li className="flex items-center">
             <span className="w-8 h-8 flex justify-center items-center bg-blue-500 text-white rounded-full mr-3">
               <svg className="w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
               </svg>
             </span>
             <p className="text-gray-700">Learn through feedback and community insights.</p>
@@ -162,7 +162,7 @@ const Home = () => {
         {/* <!-- Infographic Icon --> */}
         <div className="flex items-center justify-center bg-blue-500 text-white rounded-lg p-6">
           <svg className="w-16 h-16" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"
               d="M9.75 6.75a3 3 0 11-3 3 3 3 0 013-3zm6 0a3 3 0 11-3 3 3 3 0 013-3zm-6 6a3 3 0 11-3 3 3 3 0 013-3zm6 0a3 3 0 11-3 3 3 3 0 013-3z" />
           </svg>
         </div>
@@ -184,7 +184,7 @@ const Home = () => {
       <div className="text-center bg-gray-50 shadow-lg rounded-lg p-6">
         <div className="flex items-center justify-center w-16 h-16 bg-blue-500 text-white rounded-full mx-auto mb-4">
           <svg className="w-8 h-8" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"
               d="M3 10h11M9 21V3M17 16l4-4m0 0l-4-4m4 4H10" />
           </svg>
         </div>
@@ -198,7 +198,7 @@ const Home = () => {
       <div className="text-center bg-gray-50 shadow-lg rounded-lg p-6">
         <div className="flex items-center justify-center w-16 h-16 bg-blue-500 text-white rounded-full mx-auto mb-4">
           <svg className="w-8 h-8" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"
               d="M8 10h8m-4-4v8m-5.223 6.092a8.978 8.978 0 01-2.147-1.481A8.977 8.977 0 015 13c0-4.963 4.037-9 9-9s9 4.037 9 9a8.977 8.977 0 01-1.63 5.068 8.978 8.978 0 01-5.147 2.923" />
           </svg>
         </div>
@@ -212,7 +212,7 @@ const Home = () => {
       <div className="text-center bg-gray-50 shadow-lg rounded-lg p-6">
         <div className="flex items-center justify-center w-16 h-16 bg-blue-500 text-white rounded-full mx-auto mb-4">
           <svg className="w-8 h-8" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"
               d="M12 8c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.21 0-4 1.79-4 4v5h8v-5c0-2.21-1.79-4-4-4zm-2 8h4v1H10v-1z" />
           </svg>
         </div>
@@ -226,7 +226,7 @@ const Home = () => {
       <div className="text-center bg-gray-50 shadow-lg rounded-lg p-6">
         <div className="flex items-center justify-center w-16 h-16 bg-blue-500 text-white rounded-full mx-auto mb-4">
           <svg className="w-8 h-8" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"
               d="M21 21l-4.35-4.35m0 0A7.952 7.952 0 0116 11c0-4.418-3.582-8-8-8S0 6.582 0 11s3.582 8 8 8a7.952 7.952 0 005.65-2.35z" />
           </svg>
         </div>
@@ -357,12 +357,12 @@ const Home = () => {
             className="w-16 h-16 rounded-full"
           />
           <div>
-            <h3 className="font-semibold text-lg">Michael Brown</h3>
+            <h3 className="font-semibold text-lg">Leomar Abad</h3>
             <p className="text-sm text-gray-500">IT Student</p>
           </div>
         </div>
         <p className="text-gray-700">
-          "I found the perfect partner for my next project through Capstone Connect. Collaboration
+          "I found the perfect partner htmlFor my next project through Capstone Connect. Collaboration
           has never been this easy."
         </p>
       </div>
@@ -382,7 +382,7 @@ const Home = () => {
       <div className="text-center bg-white shadow-lg rounded-lg p-6">
         <div className="flex items-center justify-center w-16 h-16 bg-blue-500 text-white rounded-full mx-auto mb-4">
           <svg className="w-8 h-8" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"
               d="M16 12A4 4 0 0112 8a4 4 0 11-4 4m8 0a4 4 0 11-4 4m4-4h6m-6 0H4" />
           </svg>
         </div>
@@ -396,7 +396,7 @@ const Home = () => {
       <div className="text-center bg-white shadow-lg rounded-lg p-6">
         <div className="flex items-center justify-center w-16 h-16 bg-blue-500 text-white rounded-full mx-auto mb-4">
           <svg className="w-8 h-8" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"
               d="M4 4v16h16V4H4zm4 8h8M8 12V8m8 4v4" />
           </svg>
         </div>
@@ -410,7 +410,7 @@ const Home = () => {
       <div className="text-center bg-white shadow-lg rounded-lg p-6">
         <div className="flex items-center justify-center w-16 h-16 bg-blue-500 text-white rounded-full mx-auto mb-4">
           <svg className="w-8 h-8" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"
               d="M5 13l4 4L19 7" />
           </svg>
         </div>
@@ -483,7 +483,7 @@ const Home = () => {
         <button className="w-full text-left px-6 py-4 bg-gray-100 text-gray-800 font-medium flex items-center justify-between">
           <span>How do I create an account?</span>
           <svg className="w-6 h-6 text-gray-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
           </svg>
         </button>
         <div className="px-6 py-4 bg-white text-gray-600">
@@ -496,7 +496,7 @@ const Home = () => {
         <button className="w-full text-left px-6 py-4 bg-gray-100 text-gray-800 font-medium flex items-center justify-between">
           <span>What project types and file formats are supported?</span>
           <svg className="w-6 h-6 text-gray-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
           </svg>
         </button>
         <div className="px-6 py-4 bg-white text-gray-600">
@@ -509,7 +509,7 @@ const Home = () => {
         <button className="w-full text-left px-6 py-4 bg-gray-100 text-gray-800 font-medium flex items-center justify-between">
           <span>Is my data private and secure?</span>
           <svg className="w-6 h-6 text-gray-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
           </svg>
         </button>
         <div className="px-6 py-4 bg-white text-gray-600">
@@ -533,23 +533,23 @@ const Home = () => {
       {/* <!-- Form Section --> */}
       <div className="bg-gray-50 p-8 rounded-lg shadow-lg">
         <h3 className="text-2xl font-semibold text-gray-800 mb-6">Get in Touch</h3>
-        <form action="#" method="POST">
+        <form>
           <div className="space-y-4">
             {/* <!-- Name Field --> */}
             <div>
-              <label for="name" className="block text-gray-700">Full Name</label>
+              <label htmlFor="name" className="block text-gray-700">Full Name</label>
               <input type="text" id="name" name="name" className="w-full px-4 py-3 bg-white border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none" required/>
             </div>
 
             {/* <!-- Email Field --> */}
             <div>
-              <label for="email" className="block text-gray-700">Email Address</label>
+              <label htmlFor="email" className="block text-gray-700">Email Address</label>
               <input type="email" id="email" name="email" className="w-full px-4 py-3 bg-white border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none" required/>
             </div>
 
             {/* <!-- Message Field --> */}
             <div>
-              <label for="message" className="block text-gray-700">Your Message</label>
+              <label htmlFor="message" className="block text-gray-700">Your Message</label>
               <textarea id="message" name="message" rows="4" className="w-full px-4 py-3 bg-white border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none" required></textarea>
             </div>
 
@@ -569,17 +569,17 @@ const Home = () => {
         <div className="flex space-x-6">
           <a href="#" className="text-gray-700 hover:text-blue-600 transition-colors">
             <svg className="w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 2c-5.523 0-10 4.477-10 10s4.477 10 10 10 10-4.477 10-10-4.477-10-10-10zM12 18a6 6 0 100-12 6 6 0 000 12z" />
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 2c-5.523 0-10 4.477-10 10s4.477 10 10 10 10-4.477 10-10-4.477-10-10-10zM12 18a6 6 0 100-12 6 6 0 000 12z" />
             </svg>
           </a>
           <a href="#" className="text-gray-700 hover:text-blue-600 transition-colors">
             <svg className="w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 2h-3.24c-.88 0-1.71.54-2.04 1.35l-1.29 2.78-2.81-.01a5.99 5.99 0 00-5.77 4.51l-.06.26-.22-.03a3.23 3.23 0 00-3.25 3.24v5.7c0 1.56 1.26 2.83 2.83 2.83h10.6a2.83 2.83 0 002.83-2.83v-5.7a3.23 3.23 0 00-3.25-3.24l-.22.03-.06-.26a5.99 5.99 0 00-5.77-4.51l-2.81.01-1.29-2.78a2.88 2.88 0 00-2.04-1.35h-.05z" />
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 2h-3.24c-.88 0-1.71.54-2.04 1.35l-1.29 2.78-2.81-.01a5.99 5.99 0 00-5.77 4.51l-.06.26-.22-.03a3.23 3.23 0 00-3.25 3.24v5.7c0 1.56 1.26 2.83 2.83 2.83h10.6a2.83 2.83 0 002.83-2.83v-5.7a3.23 3.23 0 00-3.25-3.24l-.22.03-.06-.26a5.99 5.99 0 00-5.77-4.51l-2.81.01-1.29-2.78a2.88 2.88 0 00-2.04-1.35h-.05z" />
             </svg>
           </a>
           <a href="#" className="text-gray-700 hover:text-blue-600 transition-colors">
             <svg className="w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.59 4.59a2 2 0 010 2.83l-3 3a2 2 0 010 2.83l3 3a2 2 0 012.83 0l6 6a2 2 0 012.83-2.83l-6-6a2 2 0 010-2.83l3-3a2 2 0 010-2.83l-3-3a2 2 0 00-2.83 0l-6 6a2 2 0 00-2.83 2.83l3 3z" />
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8.59 4.59a2 2 0 010 2.83l-3 3a2 2 0 010 2.83l3 3a2 2 0 012.83 0l6 6a2 2 0 012.83-2.83l-6-6a2 2 0 010-2.83l3-3a2 2 0 010-2.83l-3-3a2 2 0 00-2.83 0l-6 6a2 2 0 00-2.83 2.83l3 3z" />
             </svg>
           </a>
         </div>
