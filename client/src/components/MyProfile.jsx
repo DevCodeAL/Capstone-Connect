@@ -24,12 +24,16 @@ const Profile = () => {
         <div className="flex flex-col justify-center items-center text-2xl font-bold">
           <h1>Welcome, {user?.userName}</h1>
           <p>Email: {user?.userEmail}</p>
-          <button
-            onClick={logout}
-            className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
-          >
-            Logout
-          </button>
+          <img src={user.userPicture} alt="user picture" />
+          
+          <div className="p-3">
+            <button
+              onClick={logout}
+              className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
+            >
+              Logout
+            </button>
+          </div>
         </div>
       ) : null}
     </div>

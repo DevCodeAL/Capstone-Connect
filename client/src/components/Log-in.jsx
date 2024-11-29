@@ -4,8 +4,11 @@ import { useNavigate } from 'react-router-dom';
 import LoginAlert from '../modal/modal-error-alert/login-alert';
 import LoginLoading from '../modal/modal-error-alert/loginLoading';
 import { useAuth } from '../AutContext';
+import GoogleSignIn from './GoogleLogin';
 
-const Login = ({HandleEventClose, OpenModal})=>{
+
+
+const Login = ({HandleEventClose})=>{
   const { login } = useAuth();
   const [isUser, setUser] = useState({username: '', password: ''});
   const [isError, setError] = useState({username: '', password: ''});
@@ -32,7 +35,7 @@ e.preventDefault();
         setTimeout(()=>{
          //Clear input fields after login
         setUser({username: '', password: ''});
-        navigate('/browse');
+        navigate('/home');
         HandleEventClose(setClose(true));
         },2000);
   } catch(err){
@@ -132,6 +135,10 @@ e.preventDefault();
             {isModalView && <LoginAlert onClose={onCloseModal} children={alertMessage}/>}
             {loading && <LoginLoading/>}
 
+              <div className='flex justify-center p-3'>
+                  <GoogleSignIn/>
+              </div>
+           
         <p className="text-center text-gray-600 mt-4">
             <Link to={'/forgot-pass'} className="text-indigo-500 hover:underline">Forgot Password?</Link>
         </p>

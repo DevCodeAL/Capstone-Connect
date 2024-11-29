@@ -1,5 +1,5 @@
 import { createContext, useContext, useState, useEffect } from "react";
-import { getAuth_user, getUserId } from "./services/itemServices";
+import { getAuth_user, getUserId, getGoogleId } from "./services/itemServices";
 import { jwtDecode } from "jwt-decode";
 
 const AuthContext = createContext();
@@ -80,6 +80,34 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
+  //Sign-in with Google
+  const HandleGoogleLoginSuccess = async (credentialResponse) => {
+ 
+    const credentialResponseToken = credentialResponse.credential;
+    console.log("Credentials token", credentialResponseToken);
+
+    try {
+      // Decode if you need to view payload directly in frontend
+      const decodedToken = jwtDecode(credentialResponseToken);
+      console.log("Decoded Token", decodedToken);
+
+      const response = await getGoogleId(credentialResponseToken);
+      const { token, user } = response.data;
+      console.log("User Authenticated", response.data);
+
+       // Store token and user details in localStorage
+       localStorage.setItem("token", token);
+       localStorage.setItem("user", JSON.stringify(user)); // Persist user data as well
+       setToken(token);
+       setUser(user);
+       return response;
+     
+    } catch (err) {
+      console.error("Error during authentication:", err.response?.data || err.message);
+    }
+  };
+
+
   // Logout function
   const logout = () => {
     localStorage.removeItem("token"); // Remove token from storage
@@ -91,7 +119,7 @@ export const AuthProvider = ({ children }) => {
 
   // Provide context to children
   return (
-    <AuthContext.Provider value={{ user, token, login, logout, loading, fetchUser }}>
+    <AuthContext.Provider value={{ user, token, login, HandleGoogleLoginSuccess, logout, loading, fetchUser }}>
       {children}
     </AuthContext.Provider>
   );

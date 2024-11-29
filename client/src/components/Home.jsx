@@ -4,34 +4,58 @@ const Home = () => {
   return (
       <>
           <div className="relative w-full h-screen">
-          {/* Video Background */}
-          <video className="absolute top-0 left-0 w-full h-full object-cover z-0" autoPlay loop muted>
-            <source src="/hero-video.mp4" type="video/mp4" />
-          </video>
+            {/* Video Background */}
+            <video className="absolute top-0 left-0 w-full h-full object-cover z-0" autoPlay loop muted>
+              <source src="/hero-video.mp4" type="video/mp4" />
+            </video>
 
-          {/* Color Overlay */}
-          <div className="absolute top-0 left-0 w-full h-full bg-black bg-opacity-50 z-10"></div>
+            {/* Color Overlay */}
+            <div className="absolute top-0 left-0 w-full h-full bg-black bg-opacity-50 z-10"></div>
 
-          {/* Content Over the Video */}
-          <div className="relative z-20 text-white flex justify-center px-48 items-center h-full">
-            <div className="text-center font-bold -mt-3">
-              <div className="text-5xl my-3 text-green-400 animate-bounce">
-                <h1 className="animate-slidein [animation-delay:0s]">Capstone Connect</h1>
-              </div> 
-              <div className="text-4xl">
-                <h2 className="animate-slidein [animation-delay:0.5s]">A Collaborative Student Platform for Project Sharing and Feedback</h2>
-              </div>
-              <div className="my-10">
-                <h3 className="text-2xl animate-slidein [animation-delay:1s]">"Share Learn and Grow Together"</h3>
-                <button className="bg-orange-500 hover:bg-orange-600 rounded-full py-2 px-4 my-5 animate-slidein [animation-delay:1.5s]">
-                  Join the Community
-                </button>
+            {/* Content Over the Video */}
+            <div className="relative z-20 text-white flex justify-center px-8 md:px-16 lg:px-32 items-center h-full">
+              <div className="text-center font-bold -mt-3">
+                {/* Title */}
+                <div className="text-3xl sm:text-4xl md:text-5xl lg:text-5xl my-3 text-green-400 animate-bounce">
+                  <h1 className="animate-slidein [animation-delay:0s]">Capstone Connect</h1>
+                </div>
+                
+                {/* Subtitle */}
+                <div className="text-xl sm:text-2xl md:text-3xl lg:text-4xl">
+                  <h2 className="animate-slidein [animation-delay:0.5s]">
+                    A Collaborative Student Platform for Project Sharing and Feedback
+                  </h2>
+                </div>
+
+                {/* Tagline and Button */}
+                <div className="my-10">
+                  <h3 className="text-lg sm:text-xl md:text-2xl lg:text-2xl animate-slidein [animation-delay:1s]">
+                    "Share, Learn, and Grow Together"
+                  </h3>
+                  <button className="
+                    bg-orange-500 
+                    hover:bg-orange-600 
+                    rounded-full 
+                    py-2 px-4 
+                    sm:py-3 sm:px-6 
+                    md:py-4 md:px-8 
+                    lg:py-2 lg:px-4 lg:text-sm 
+                    xl:py-1 xl:px-3 xl:text-base 
+                    my-5 
+                    text-sm 
+                    sm:text-base 
+                    md:text-lg 
+                    animate-slidein 
+                    [animation-delay:1.5s]">
+                    Join the Community
+                  </button>
+                </div>
               </div>
             </div>
           </div>
-        </div>
 
-        <div className="relative bg-gradient-to-r from-blue-500 to-purple-600 min-h-screen flex items-center justify-center">
+
+    <div className="relative bg-gradient-to-r from-blue-500 to-purple-600 min-h-screen flex items-center justify-center">
   {/* <!-- Animated Background --> */}
   <div className="absolute inset-0">
     <div className="absolute top-10 left-20 w-40 h-40 bg-yellow-300 rounded-full opacity-30 animate-pulse"></div>
@@ -95,6 +119,67 @@ const Home = () => {
     </div>
   </div>
 </div>
+
+ {/* How it Works Section */}
+ <section className="bg-gray-50 py-16">
+  {/* <!-- Container --> */}
+  <div className="max-w-7xl mx-auto px-6">
+    {/* <!-- Title --> */}
+    <h2 className="text-center text-4xl font-bold text-gray-800 mb-10">Getting Started with Capstone Connect</h2>
+
+    {/* <!-- Steps --> */}
+    <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+      {/* <!-- Step 1: Sign Up --> */}
+      <div className="text-center bg-white shadow-lg rounded-lg p-6">
+        <div className="flex items-center justify-center w-16 h-16 bg-blue-500 text-white rounded-full mx-auto mb-4">
+          <svg className="w-8 h-8" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"
+              d="M16 12A4 4 0 0112 8a4 4 0 11-4 4m8 0a4 4 0 11-4 4m4-4h6m-6 0H4" />
+          </svg>
+        </div>
+        <h3 className="text-lg font-semibold text-gray-800 mb-2">Sign Up</h3>
+        <p className="text-gray-600 text-sm">
+          Create your profile to join the Capstone Connect community.
+        </p>
+      </div>
+
+      {/* <!-- Step 2: Upload Your Project --> */}
+      <div className="text-center bg-white shadow-lg rounded-lg p-6">
+        <div className="flex items-center justify-center w-16 h-16 bg-blue-500 text-white rounded-full mx-auto mb-4">
+          <svg className="w-8 h-8" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"
+              d="M4 4v16h16V4H4zm4 8h8M8 12V8m8 4v4" />
+          </svg>
+        </div>
+        <h3 className="text-lg font-semibold text-gray-800 mb-2">Upload Your Project</h3>
+        <p className="text-gray-600 text-sm">
+          Add descriptions, images, and source code to showcase your work.
+        </p>
+      </div>
+
+      {/* <!-- Step 3: Engage with Others --> */}
+      <div className="text-center bg-white shadow-lg rounded-lg p-6">
+        <div className="flex items-center justify-center w-16 h-16 bg-blue-500 text-white rounded-full mx-auto mb-4">
+          <svg className="w-8 h-8" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"
+              d="M5 13l4 4L19 7" />
+          </svg>
+        </div>
+        <h3 className="text-lg font-semibold text-gray-800 mb-2">Engage with Others</h3>
+        <p className="text-gray-600 text-sm">
+          Comment, collaborate, and receive valuable feedback on your projects.
+        </p>
+      </div>
+    </div>
+    
+    {/* <!-- Visual/Call-to-Action --> */}
+    <div className="text-center mt-12">
+      <a href="#signup" className="px-6 py-3 bg-blue-500 text-white rounded-lg text-lg hover:bg-blue-600">
+        Get Started Now
+      </a>
+    </div>
+  </div>
+</section>
 
 
 {/* About Section */}
@@ -362,73 +447,12 @@ const Home = () => {
           </div>
         </div>
         <p className="text-gray-700">
-          "I found the perfect partner htmlFor my next project through Capstone Connect. Collaboration
+          "I found the perfect partner for my next project through Capstone Connect. Collaboration
           has never been this easy."
         </p>
       </div>
     </div>
 
-
-    {/* How it Works Section */}
-    <section className="bg-gray-50 py-16">
-  {/* <!-- Container --> */}
-  <div className="max-w-7xl mx-auto px-6">
-    {/* <!-- Title --> */}
-    <h2 className="text-center text-4xl font-bold text-gray-800 mb-10">Getting Started with Capstone Connect</h2>
-
-    {/* <!-- Steps --> */}
-    <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-      {/* <!-- Step 1: Sign Up --> */}
-      <div className="text-center bg-white shadow-lg rounded-lg p-6">
-        <div className="flex items-center justify-center w-16 h-16 bg-blue-500 text-white rounded-full mx-auto mb-4">
-          <svg className="w-8 h-8" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"
-              d="M16 12A4 4 0 0112 8a4 4 0 11-4 4m8 0a4 4 0 11-4 4m4-4h6m-6 0H4" />
-          </svg>
-        </div>
-        <h3 className="text-lg font-semibold text-gray-800 mb-2">Sign Up</h3>
-        <p className="text-gray-600 text-sm">
-          Create your profile to join the Capstone Connect community.
-        </p>
-      </div>
-
-      {/* <!-- Step 2: Upload Your Project --> */}
-      <div className="text-center bg-white shadow-lg rounded-lg p-6">
-        <div className="flex items-center justify-center w-16 h-16 bg-blue-500 text-white rounded-full mx-auto mb-4">
-          <svg className="w-8 h-8" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"
-              d="M4 4v16h16V4H4zm4 8h8M8 12V8m8 4v4" />
-          </svg>
-        </div>
-        <h3 className="text-lg font-semibold text-gray-800 mb-2">Upload Your Project</h3>
-        <p className="text-gray-600 text-sm">
-          Add descriptions, images, and source code to showcase your work.
-        </p>
-      </div>
-
-      {/* <!-- Step 3: Engage with Others --> */}
-      <div className="text-center bg-white shadow-lg rounded-lg p-6">
-        <div className="flex items-center justify-center w-16 h-16 bg-blue-500 text-white rounded-full mx-auto mb-4">
-          <svg className="w-8 h-8" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"
-              d="M5 13l4 4L19 7" />
-          </svg>
-        </div>
-        <h3 className="text-lg font-semibold text-gray-800 mb-2">Engage with Others</h3>
-        <p className="text-gray-600 text-sm">
-          Comment, collaborate, and receive valuable feedback on your projects.
-        </p>
-      </div>
-    </div>
-    
-    {/* <!-- Visual/Call-to-Action --> */}
-    <div className="text-center mt-12">
-      <a href="#signup" className="px-6 py-3 bg-blue-500 text-white rounded-lg text-lg hover:bg-blue-600">
-        Get Started Now
-      </a>
-    </div>
-  </div>
-</section>
 
 {/* Call-to-Action Section */}
 <section className="bg-blue-600 text-white py-16">
@@ -461,9 +485,9 @@ const Home = () => {
 
     {/* <!-- Visual --> */}
     <div className="mt-12">
-      <img src="https://via.placeholder.com/800x400" 
-           alt="Motivational Illustration" 
-           className="mx-auto rounded-lg shadow-lg"/>
+    <video className="w-auto h-auto mx-auto rounded-lg shadow-lg" autoPlay loop muted>
+        <source src="/technology.mp4" type="video/mp4" />
+    </video>
     </div>
   </div>
 </section>

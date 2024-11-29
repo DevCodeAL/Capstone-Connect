@@ -3,6 +3,7 @@ import cors from 'cors';
 import dotenv from 'dotenv';
 import mongoose from 'mongoose';
 import ItemRoutes from './model/routes/ItemRoutes.js';
+import bodyParser from 'body-parser';
 
 dotenv.config();
 
@@ -13,6 +14,7 @@ const MONGODB_URI = process.env.MONGODB_URI;
 // Middleware setup 
 app.use(cors());
 app.use(express.json());  // Use express.json() to parse JSON payloads
+app.use(bodyParser.json());
 app.use('/api', ItemRoutes);
 
 

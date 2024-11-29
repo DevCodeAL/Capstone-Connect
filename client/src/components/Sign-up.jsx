@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { createUser } from '../services/itemServices';
 import IsLoading from '../modal/modal-error-alert/submitFormLoading';
 import SignAlert from '../modal/modal-error-alert/sign-alert';
+import GoogleSignIn from './GoogleLogin';
 
 const SignUp = ({SignUpModal}) => {
 const [newUser, setUser] = useState({role: '', username: '', email:'',  password: '', Confirmed_Password: ''});
@@ -198,6 +199,10 @@ async function HandleFormSubmit(e) {
             {/* {Spinner Loading} */}
             {loading && <IsLoading/>}
             {setModal && <SignAlert onClose={onClose} children={alertMessage}/>}
+
+            <div className='flex justify-center p-3'>
+                  <GoogleSignIn/>
+              </div>
 
         <p className="text-center text-gray-600 mt-4">
           Already have an account? <Link to={'/login'} className="text-indigo-500 hover:underline">Log In</Link>
