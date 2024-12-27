@@ -1,18 +1,32 @@
 import { GoogleLogin } from "@react-oauth/google";
 import { useAuth } from "../AutContext";
+import { useNavigate } from "react-router-dom";
 
+function GoogleSignIn() {
+  const { HandleGoogleLoginSuccess, user } = useAuth();
+  const navigate = useNavigate();
 
-  function GoogleSignIn() {
-  const {HandleGoogleLoginSuccess} = useAuth();
+  const HandleGoogleSignIn = async (credentialResponse) => {
+    console.log("Credential Response:", credentialResponse);
+    try {
+      const response = await HandleGoogleLoginSuccess(credentialResponse);
+      console.log("Authenticated user", response);
+      if (response) {
+        navigate("/main-home");
+      }
+    } catch (error) {
+      console.error("No authenticated user", error);
+    }
+  };
 
-    return (
-      <GoogleLogin
-        onSuccess={HandleGoogleLoginSuccess}
-        onError={() => {
-          console.log("Login failed!");
-        }}
-      />
-    );
-  }
+  return (
+    <GoogleLogin
+      onSuccess={HandleGoogleSignIn}
+      onError={(error) => {
+        console.error("Login failed", error);
+      }}
+    />
+  );
+}
 
-  export default GoogleSignIn;
+export default GoogleSignIn;

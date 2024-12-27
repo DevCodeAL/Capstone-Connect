@@ -6,8 +6,6 @@ import LoginLoading from '../modal/modal-error-alert/loginLoading';
 import { useAuth } from '../AutContext';
 import GoogleSignIn from './GoogleLogin';
 
-
-
 const Login = ({HandleEventClose})=>{
   const { login } = useAuth();
   const [isUser, setUser] = useState({username: '', password: ''});
@@ -135,9 +133,9 @@ e.preventDefault();
             {isModalView && <LoginAlert onClose={onCloseModal} children={alertMessage}/>}
             {loading && <LoginLoading/>}
 
-              <div className='flex justify-center p-3'>
-                  <GoogleSignIn/>
-              </div>
+            <div className='flex justify-center p-4'>
+                <GoogleSignIn/>
+            </div>
            
         <p className="text-center text-gray-600 mt-4">
             <Link to={'/forgot-pass'} className="text-indigo-500 hover:underline">Forgot Password?</Link>

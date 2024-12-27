@@ -1,20 +1,19 @@
 import { useState } from 'react';
 import { useLocation, Link } from 'react-router-dom';
 import Login from './Log-in';
-import SignUp from './Sign-up';
 import { useAuth } from '../AutContext';
+import { GoogleLogin } from '@react-oauth/google';
 
 const SideBar = ({CloseSidebar}) => {
     const location = useLocation();
     const [LoginModal, setLoginModal] = useState(false);
-    const [SignupModal, setSignupModal] = useState(false);
     const [sideBar, setSideBar] = useState(false);
     const { user } = useAuth();
     
   //Login Modal Event
    function LogModalEvent(){
        setLoginModal(true);
-       setSignupModal(false);
+     
      }
   
      function CloseModalEvent(){
@@ -24,18 +23,13 @@ const SideBar = ({CloseSidebar}) => {
   
     function DirectLoginEvent(){
       setLoginModal(true);
-      setSignupModal(false);
+      
     }
   
      function HandleCloseEvent(){
          setLoginModal(false);
-         setSignupModal(false);
+       
      }
-      //Signup Modal Event
-      function SignupModalEvent(){
-          setSignupModal(true);
-          setLoginModal(false);
-      }
 
       const closeSidebar = ()=>{
         CloseSidebar(setSideBar(false));
@@ -97,8 +91,8 @@ const SideBar = ({CloseSidebar}) => {
                     <li className="bg-blue-800 hover:bg-blue-900 p-2 rounded-md text-white">
                         <button onClick={LogModalEvent}>Login</button>
                     </li>
-                    <li className="bg-lime-600 hover:bg-lime-700 p-2 rounded-md text-white">
-                        <button onClick={SignupModalEvent}>Signup</button>
+                    <li>
+                       <GoogleLogin/> 
                     </li>
                     </>
                 )}
@@ -126,30 +120,6 @@ const SideBar = ({CloseSidebar}) => {
                     </svg>
                     </span>
                     <Login HandleEventClose={CloseModalEvent} />
-                </div>
-                </div>
-            )}
-
-            {SignupModal && (
-                <div className="flex items-center justify-center min-h-screen">
-                <div className="bg-white p-8 rounded-lg shadow-lg w-full max-w-screen-sm">
-                    <span onClick={HandleCloseEvent} className="flex justify-end cursor-pointer">
-                    <svg
-                        className="w-6 h-6 text-gray-800"
-                        xmlns="http://www.w3.org/2000/svg"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                    >
-                        <path
-                        stroke="currentColor"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth="2"
-                        d="M6 18 17.94 6M18 18 6.06 6"
-                        />
-                    </svg>
-                    </span>
-                    <SignUp SignUpModal={DirectLoginEvent} />
                 </div>
                 </div>
             )}

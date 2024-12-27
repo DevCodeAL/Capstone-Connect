@@ -1,16 +1,12 @@
 import { useEffect, useState } from 'react';
 import { useLocation, Link } from 'react-router-dom';
 import Login from './Log-in';
-import SignUp from './Sign-up';
 import { useAuth } from '../AutContext';
 import SideBar from './SideBar';
-
-
 
 const NavBar = () => {
   const location = useLocation();
   const [LoginModal, setLoginModal] = useState(false);
-  const [SignupModal, setSignupModal] = useState(false);
   const [sideBar, setSideBar] = useState(false);
   const [initialNavBar, setSideNavBar] = useState(window.innerWidth);
   const { user } = useAuth();
@@ -25,7 +21,6 @@ const NavBar = () => {
 //Login Modal Event
  function LogModalEvent(){
      setLoginModal(true);
-     setSignupModal(false);
    }
 
    function CloseModalEvent(){
@@ -33,21 +28,9 @@ const NavBar = () => {
     
   }
 
-  function DirectLoginEvent(){
-    setLoginModal(true);
-    setSignupModal(false);
-  }
-
    function HandleCloseEvent(){
        setLoginModal(false);
-       setSignupModal(false);
    }
-    //Signup Modal Event
-    function SignupModalEvent(){
-        setSignupModal(true);
-        setLoginModal(false);
-    }
-
 
     const openSideBar = ()=>{
       setSideBar(true);
@@ -73,7 +56,7 @@ const NavBar = () => {
             <SideBar CloseSidebar={closeSidebar} />
           </div>)}
 
-           {initialNavBar >= 575 ? <nav className='absolute top-0 p-6 left-0 w-full z-30 animate-fade-down'>
+           {initialNavBar >= 575 ? <nav className='absolute top-0 p-6 left-0 w-full z-30 animate-fade-down bg-gradient-to-r from-blue-500 to-purple-600'>
             <ul className="flex justify-evenly items-center text-base sm:text-lg md:text-xl lg:text-2xl font-bold">
               <li className="flex justify-start">
                 <Link to="/home" className="text-green-400">
@@ -81,18 +64,19 @@ const NavBar = () => {
                   {/* <img src="/logo/capstone-connect.jpg" alt="" /> */}
                 </Link>
               </li>
-              <li className="text-sm sm:text-base md:text-lg">
-                <Link to="/home" className={isActive('/home')}>
-                  Home
-                </Link>
-              </li>
+            
+                 <li className="text-sm sm:text-base md:text-lg">
+                 <Link to="/home" className={isActive('/home')}>
+                   Home
+                 </Link>
+               </li>
+          
               <li className="text-sm sm:text-base md:text-lg">
                 <Link to="/browse" className={isActive('/browse')}>
                   Browse Project
                 </Link>
               </li>
-              {user && (
-                <>
+
                   <li className="text-sm sm:text-base md:text-lg">
                     <Link to="/upload-project" className={isActive('/upload-project')}>
                       Upload Project
@@ -108,14 +92,6 @@ const NavBar = () => {
                       My Profile
                     </Link>
                   </li>
-                </>
-              )}
-              <li className="text-sm sm:text-base md:text-lg">
-                <Link to="/about" className={isActive('/about')}>
-                  About
-                </Link>
-              </li>
-
    
            {/*Modal Login Button  */}
            {!user && 
@@ -128,17 +104,18 @@ const NavBar = () => {
                 Login
               </button>
             </li>
-            {/* Modal Signup Button */}
-            <li className="bg-lime-600 hover:bg-lime-700  rounded-full text-white px-4 sm:px-6 md:px-8 lg:px-10">
-              <button 
-                className="text-sm sm:text-base md:text-lg"
-                onClick={SignupModalEvent}
-              >
-                Signup
-              </button>
-            </li>
              </>
             }
+          <li>
+          {user &&  <div className="relative inline-block">
+              <span className="absolute top-0 right-0 w-6 h-6 bg-green-500 rounded-full border-2 border-white"></span>
+              <img
+                className="w-16 h-16 rounded-full"
+                src={user?.userPicture}
+                alt="user"
+              />
+            </div>}
+          </li>
          </ul>
    
          {/*Login Modal  */}
@@ -166,32 +143,6 @@ const NavBar = () => {
            </span>
              <Login HandleEventClose={CloseModalEvent}/>
            </div>
-           </div>}
-   
-           {SignupModal && 
-            <div className="flex items-center justify-center min-h-screen -mt-8">
-             <div className="bg-white p-8 m-8 rounded-lg shadow-lg w-full max-w-screen-sm transition ease-in duration-300">
-             <span onClick={HandleCloseEvent} className="flex justify-end">
-                   <svg
-                     className="w-6 h-6 text-gray-800 dark:text-white"
-                     aria-hidden="true"
-                     xmlns="http://www.w3.org/2000/svg"
-                     width="24"
-                     height="24"
-                     fill="none"
-                     viewBox="0 0 24 24"
-                   >
-                     <path
-                       stroke="currentColor"
-                       strokeLinecap="round"
-                       trstrokelinejoin="round"
-                       strokeWidth="2"
-                       d="M6 18 17.94 6M18 18 6.06 6"
-                     />
-                   </svg>
-           </span>
-               <SignUp SignUpModal={DirectLoginEvent}/>
-               </div>
            </div>}
    </nav> 
   

@@ -1,9 +1,18 @@
+import Header from "./Header";
 
 const Dashboard = ()=>{
     return(
         <>
-            <h1 className="flex justify-center font-bold text-2xl">Welcome to Dahsboard!</h1>
-            
+         <div>
+            <Header />
+            <main>
+                <div className="flex justify-center items-center min-h-screen">
+                <div>
+                    <h1 className="font-bold text-3xl">Welcome to Dashboard!</h1>
+                </div>
+                </div>
+            </main>
+            </div>
         </>
     )
 }

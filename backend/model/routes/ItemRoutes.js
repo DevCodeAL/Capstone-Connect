@@ -8,33 +8,50 @@ import UserItems from '../models/googleSignupSchema.js';
 
 const router = express.Router();
 
+//User Registration
+router.put('/register/:id', async (req, res) => {
+  try {
+      const { id } = req.params;
+      const { role, username, email, password, Confirmed_Password } = req.body;
 
-//This is for Registration users
-router.post('/register', async (req, res)=>{
-   try{
-    const { role, username, email, password } = req.body;
-    if(!role || !username || !email || !password){
-      return res.status(400).json({message: 'All fields required!'});
-    }
+      // Validate required fields
+      if (!role || !username || !email || !password || !Confirmed_Password) {
+          return res.status(400).json({ message: 'All fields are required!' });
+      }
 
-     //Check if email is duplicate
-     const userEmail  = await UserItems.findOne({ email });
-     if(userEmail){
-      return res.status(404).json({message: 'Email is already exist!'});
-     } 
+      // Check if passwords match
+      if (password !== Confirmed_Password) {
+          return res.status(400).json({ message: 'Passwords do not match!' });
+      }
 
-        const HashPassword = await bycrypt.hash(password, 10);
-        const create_newUser = new UserItems({role, username, email, password: HashPassword});
-        const save_newUser = await create_newUser.save();
-        console.log('Registered Successfully!', save_newUser);
-        res.status(200).json(save_newUser);
-    
-   }catch(err){
-      console.error('Failed to register', err.message);
-      res.status(500).json({message: err.message});
-   }
+      // Find the user by ID
+      const existingUser = await UserItems.findById(id);
+      if (!existingUser) {
+          return res.status(404).json({ message: 'User not found!' });
+      }
+
+      // Hash the password
+      const hashedPassword = await bycrypt.hash(password, 10);
+
+      // Update user data
+      existingUser.role = role;
+      existingUser.username = username;
+      existingUser.email = email; // Typically email shouldn't be editable here
+      existingUser.password = hashedPassword;
+
+      // Save the updated user
+      const updatedUser = await existingUser.save();
+      console.log('Registered Successfully!', updatedUser);
+
+      res.status(200).json({ message: 'Registration completed successfully!', user: updatedUser });
+  } catch (err) {
+      console.error('Failed to register:', err.message);
+      res.status(500).json({ message: 'Internal Server Error', error: err.message });
+  }
 });
 
+
+// Login user Account
 router.post('/login', async (req, res) => {
   const { username, password } = req.body;
 
@@ -87,14 +104,16 @@ router.post('/google-login', async (req, res) => {
   }
 
   try {
-    const client = new OAuth2Client(process.env.CLIENT_ID);
+    const client = new OAuth2Client(
+      process.env.CLIENT_ID,
+      process.env.CLIENT_SECRET);
 
     // Verify Google token
     const ticket = await client.verifyIdToken({
       idToken: token,
       audience: process.env.CLIENT_ID,
     });
-
+    
     const payload = ticket.getPayload();
     const { sub: googleId, email, name, picture } = payload;
 
@@ -137,16 +156,15 @@ router.post('/google-login', async (req, res) => {
 });
 
 
-//This is for UserID Profile
+//Authenticated user profile
 router.get('/profile', authMiddleware, async (req, res)=>{
       try{
-        const user = await UserItem.findById(req.googleId);
+        const user = await UserItems.findById(req.googleId);
         res.status(200).json({message: {user}});
       }catch(err){
         res.status(500).json({ message: 'Server error' });
       }
 });
-
 
 
 

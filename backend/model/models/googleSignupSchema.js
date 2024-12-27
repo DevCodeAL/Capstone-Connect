@@ -7,7 +7,7 @@ const UserItemSchema = new Schema({
   googleId: { type: String, unique: true, sparse: true },
   name: { type: String },
   picture: { type: String },
-  role: { type: String, default: 'user' },
+  role: { type: String },
 });
 
 const UserItems = mongoose.model('UserItem', UserItemSchema);
