@@ -3,17 +3,18 @@ import './App.css';
 import SignUp from './components/Sign-up';
 import Login from './components/Log-in';
 import LandingPage from './components/LandingPage';
-import Home from './components/Home';
+import Home from './HomepageComponents/Home';
 import About from './components/About';
 import ForgotPass from './components/Forgot-Password';
 import CreateNewPass from './components/Create-new-password';
-import Dashboard from './components/Dashboard';
-import BrowseProject from './components/BrowseProject';
-import UploadProject from './components/UploadProject';
-import FeedBack from './components/Feedback';
-import MyProfile from './components/MyProfile';
+import BrowseProject from './HomepageComponents/BrowseProject';
+import UploadProject from './HomepageComponents/UploadProject';
+import FeedBack from './HomepageComponents/Feedback';
+import MyProfile from './HomepageComponents/MyProfile';
 import { useAuth } from './AutContext';
 import SideBar from './components/SideBar';
+import Header from './components/Header';
+import Notification from './HomepageComponents/Notification';
 
 function App() {
   const { user, loading } = useAuth();
@@ -32,6 +33,9 @@ function App() {
   return (
     <Router future={future}>
       <div>
+        <ProtectedRoute>
+            <Header/>
+        </ProtectedRoute>
         <main>
           <Routes>
             {/* Public Route */}
@@ -44,12 +48,6 @@ function App() {
             <Route path='/sidebar' element={<SideBar/>}/>
 
              {/* For Authenticated user Route */}
-             <Route path="/main-home" element={
-              <ProtectedRoute>
-                  <Dashboard />
-              </ProtectedRoute>
-             } />
-
             <Route path='/home' element={
               <ProtectedRoute>
                 <Home/>
@@ -73,13 +71,19 @@ function App() {
               </ProtectedRoute>
               } />
 
+              <Route path='notification' element={
+                <ProtectedRoute>
+                    <Notification/>
+                </ProtectedRoute>
+              }/>
+
             <Route path="/myprofile" element={
               <ProtectedRoute>
                 <MyProfile />
               </ProtectedRoute>} />
 
               {/* Condition for user if Authenticated or not */}
-              <Route path="/" element={<Navigate to={user ? "/main-home" : '/index'} />}/>
+              <Route path="/" element={<Navigate to={user ? "/home" : '/index'} />}/>
           </Routes>
         </main>
       </div>

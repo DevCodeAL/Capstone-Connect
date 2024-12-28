@@ -21,11 +21,6 @@ const SideBar = ({CloseSidebar}) => {
       
     }
   
-    function DirectLoginEvent(){
-      setLoginModal(true);
-      
-    }
-  
      function HandleCloseEvent(){
          setLoginModal(false);
        
@@ -41,11 +36,10 @@ const SideBar = ({CloseSidebar}) => {
 
   return (
          <>  
-         {}
-            <nav className="bg-gray-100 w-64 p-6 top-0 left-0 h-full ">
+            <nav className="bg-gradient-to-r from-blue-500 to-purple-600  text-white w-64 p-6 top-0 left-0 h-full ">
             <span onClick={closeSidebar} className="flex justify-end cursor-pointer">
                  <svg
-                     className="w-6 h-6 text-gray-800  hover:text-red-600"
+                     className="w-6 h-6 text-white hover:animate-jump hover:text-orange-400"
                      xmlns="http://www.w3.org/2000/svg"
                      fill="none"
                      viewBox="0 0 24 24"

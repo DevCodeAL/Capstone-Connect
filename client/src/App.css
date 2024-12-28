@@ -1,14 +1,9 @@
 .links {
-    color: rgb(255, 255, 255);
+    color: rgb(107, 105, 105);
  }
-
-  .links:hover{
-    color: rgb(12, 223, 156);
-    transition-duration: 1s;
- } 
  
  .links.active {
-    color: orange;
+    color: rgb(0, 0, 0);
     text-decoration: underline;
  }
 

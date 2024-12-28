@@ -12,7 +12,7 @@ function GoogleSignIn() {
       const response = await HandleGoogleLoginSuccess(credentialResponse);
       console.log("Authenticated user", response);
       if (response) {
-        navigate("/main-home");
+        navigate("/home");
       }
     } catch (error) {
       console.error("No authenticated user", error);
