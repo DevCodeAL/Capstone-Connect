@@ -1,3 +1,13 @@
+/* Landing Page */
+.active{
+  color: orange;
+}
+
+.notActive{
+  color: aliceblue;
+}
+
+/* Homepage */
 .links {
     color: rgb(107, 105, 105);
  }
@@ -16,6 +26,7 @@
   color: orange;
   text-decoration: underline;
 }
+
 
  @keyframes marquee {
    0% {

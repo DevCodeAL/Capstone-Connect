@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useLocation, Link } from 'react-router-dom';
-import Login from './Log-in';
+import Login from '../components/Log-in';
 import { useAuth } from '../AutContext';
 import { GoogleLogin } from '@react-oauth/google';
 

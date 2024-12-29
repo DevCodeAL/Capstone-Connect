@@ -2,9 +2,8 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-d
 import './App.css';
 import SignUp from './components/Sign-up';
 import Login from './components/Log-in';
-import LandingPage from './components/LandingPage';
+import LandingPage from './LandingPage/LandingPage';
 import Home from './HomepageComponents/Home';
-import About from './components/About';
 import ForgotPass from './components/Forgot-Password';
 import CreateNewPass from './components/Create-new-password';
 import BrowseProject from './HomepageComponents/BrowseProject';
@@ -12,7 +11,7 @@ import UploadProject from './HomepageComponents/UploadProject';
 import FeedBack from './HomepageComponents/Feedback';
 import MyProfile from './HomepageComponents/MyProfile';
 import { useAuth } from './AutContext';
-import SideBar from './components/SideBar';
+import SideBar from './HomepageComponents/SideBar';
 import Header from './components/Header';
 import Notification from './HomepageComponents/Notification';
 
@@ -25,7 +24,7 @@ function App() {
   };
 
   const ProtectedRoute = ({ children }) => {
-    if (loading) return <p>Loading...</p>; // Show loading state while fetching user
+    if (loading) return <p></p>; // Show loading state while fetching user
     if (!user) return <Navigate to="/index" />; // Redirect to login if no user
     return children; // Render children if authenticated
   };
@@ -40,7 +39,6 @@ function App() {
           <Routes>
             {/* Public Route */}
             <Route path="/index" element={<LandingPage/>}/>
-            <Route path="/about" element={<About /> }/>
             <Route path="/login" element={<Login />} />
             <Route path="/sign-up" element={<SignUp />} />
             <Route path="/forgot-pass" element={<ForgotPass />} />

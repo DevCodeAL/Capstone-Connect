@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useLocation, Link } from 'react-router-dom';
-import Login from './Log-in';
+import Login from '../components/Log-in';
 import { useAuth } from '../AutContext';
 import SideBar from './SideBar';
 import { FaHome } from "react-icons/fa";
