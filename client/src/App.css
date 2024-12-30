@@ -4,16 +4,16 @@
 }
 
 .notActive{
-  color: aliceblue;
+  color: white;
 }
 
 /* Homepage */
 .links {
-    color: rgb(107, 105, 105);
+    color: white;
  }
  
  .links.active {
-    color: rgb(0, 0, 0);
+    color: #563d56;
     text-decoration: underline;
  }
 

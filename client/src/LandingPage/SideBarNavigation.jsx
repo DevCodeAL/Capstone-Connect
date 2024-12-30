@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { GoogleLogin } from '@react-oauth/google';
+import GoogleSignIn from '../components/GoogleLogin';
 
 const MainSideBar = ({CloseSidebar}) => {
     const [sideBar, setSideBar] = useState(false);
@@ -18,20 +18,6 @@ const MainSideBar = ({CloseSidebar}) => {
             section.scrollIntoView({scroll: 'smooth'});
         }
     }
-
-    useEffect(()=>{
-        const handleScrollLinks = (id)=>{
-            if(window.scrollY > 0){
-                setCurrent(`#${id}`);
-            }
-
-            window.addEventListener('scroll' , handleScrollLinks);
-
-            return ()=> window.removeEventListener('scroll', handleScrollLinks) 
-        }
-    },[])
-  
-  
 
   return (
          <>  
@@ -90,7 +76,7 @@ const MainSideBar = ({CloseSidebar}) => {
                     >About</button>
                 </li>
                 <li>
-                    <GoogleLogin/> 
+                    <GoogleSignIn/>
                 </li>
             </ul>
        </nav>
