@@ -46,7 +46,7 @@ const NavBar = () => {
             <SideBar CloseSidebar={closeSidebar} />
           </div>)}
 
-           {initialNavBar >= 575 ? <nav className="fixed top-3 left-1/2 transform -translate-x-1/2 p-2 w-[calc(100%-2rem)] max-w-full z-30 bg-gradient-to-r from-blue-500 to-purple-600 shadow-xl rounded-full">
+           {initialNavBar >= 575 ? <nav className="fixed top-3 left-1/2 transform -translate-x-1/2 p-2 w-[calc(100%-2rem)] max-w-full z-20 bg-gradient-to-r from-blue-500 to-purple-600 shadow-xl rounded-full">
 
             <ul className="flex justify-around items-center text-base sm:text-lg md:text-xl lg:text-2xl font-bold">
               <li className="flex justify-start gap-2">

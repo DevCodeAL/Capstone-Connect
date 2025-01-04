@@ -24,6 +24,10 @@ export const getUserId = (data) => axios.post(API_Url_Login, data);
 const API_Auth_User = 'http://localhost:5000/api/profile';
 export const getAuth_user = ()=> axios.get(API_Auth_User);
 
+// API for files including Pdf, docs, doc, video, image
+const API_File = 'http://localhost:5000/api/stats';
+export const getFiles = ()=> axios.post(API_File);
+
 // Api for dataset
 const API_Url_Items = 'http://localhost:5000/api/items';
 export const getItems = ()=> axios.get(API_Url_Items);
