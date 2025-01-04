@@ -5,6 +5,7 @@ import mongoose from 'mongoose';
 import ItemRoutes from './model/routes/ItemRoutes.js';
 import bodyParser from 'body-parser';
 
+
 dotenv.config();
 
 const app = express();
@@ -16,18 +17,20 @@ app.use(cors());
 app.use(express.json());  // Use express.json() to parse JSON payloads
 app.use(bodyParser.json());
 app.use('/api', ItemRoutes);
+ app.use("/file", express.static("./file"));
+
 
 
 // Function to connect to the database
 async function Database_Connection() {
     try {
         await mongoose.connect(MONGODB_URI);
+        
         console.log('Successfully connected to MongoDB');  // Log successful connection
     } catch (err) {
         console.error('Connection error', err);  // Log any connection errors
     }
 }
-
     // Initialize the database connection
     Database_Connection();
 

@@ -5,6 +5,8 @@ import bycrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import { OAuth2Client } from 'google-auth-library';
 import UserItems from '../models/googleSignupSchema.js';
+import upload from '../../middleware/multerMiddleware.js';
+import File from '../models/multimediaScema.js';
 
 const router = express.Router();
 
@@ -166,6 +168,52 @@ router.get('/profile', authMiddleware, async (req, res)=>{
       }
 });
 
+// Upload files , Pdf, Docx, Doc Image, Videos
+router.post("/stats", upload.single("file"), async (req, res) => {
+  try {
+    const { originalname, mimetype, size, path } = req.file; // Access uploaded file details
+
+    const fileType = getFileType(mimetype); // Helper function to determine the file type
+
+    const file = new File({
+      filename: originalname,
+      fileType,
+      mimetype,
+      size,
+      metadata: { path }, // Save the path in metadata if needed
+    });
+
+    await file.save();
+
+    res.status(201).json({ message: "File uploaded successfully", file });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Error uploading file", error: error.message });
+  }
+});
+
+// Helper function to determine file type
+function getFileType(mimetype) {
+  if (mimetype.startsWith("image")) return "image";
+  if (mimetype.startsWith("video")) return "video";
+  if (mimetype === "application/pdf") return "pdf";
+  if (mimetype === "application/msword") return "doc";
+  if (mimetype === "application/vnd.openxmlformats-officedocument.wordprocessingml.document")
+    return "docx";
+  return "unknown";
+}
+
+
+// Endpoint to list files with unique identifiers
+router.get('/file', (req, res) => {
+  const files = [
+    { _id: '1', type: 'image', url: '/file/image.jpg' },
+    { _id: '2', type: 'video', url: '/file/video.mp4' },
+    { _id: '3', type: 'doc', url: '/file/document.docx' },
+    { _id: '4', type: 'pdf', url: '/file/document.pdf' },
+  ];
+  res.json(files);
+});
 
 
 
