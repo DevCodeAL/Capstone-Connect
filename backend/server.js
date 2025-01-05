@@ -17,7 +17,7 @@ app.use(cors());
 app.use(express.json());  // Use express.json() to parse JSON payloads
 app.use(bodyParser.json());
 app.use('/api', ItemRoutes);
- app.use("/file", express.static("./file"));
+ app.use("/file", express.static("file"));
 
 
 

@@ -173,8 +173,12 @@ router.post("/stats", upload.single("file"), async (req, res) => {
   try {
     const { originalname, mimetype, size, path } = req.file; // Access uploaded file details
 
-    const fileType = getFileType(mimetype); // Helper function to determine the file type
-
+       // Helper function to determine the file type
+    const fileType = getFileType(mimetype);
+    if (fileType === "unknown") {
+        return res.status(400).json({ message: "Unsupported file type" });
+    }
+  
     const file = new File({
       filename: originalname,
       fileType,
@@ -205,16 +209,15 @@ function getFileType(mimetype) {
 
 
 // Endpoint to list files with unique identifiers
-router.get('/file', (req, res) => {
-  const files = [
-    { _id: '1', type: 'image', url: '/file/image.jpg' },
-    { _id: '2', type: 'video', url: '/file/video.mp4' },
-    { _id: '3', type: 'doc', url: '/file/document.docx' },
-    { _id: '4', type: 'pdf', url: '/file/document.pdf' },
-  ];
-  res.json(files);
+router.get('/file', async (req, res) => {
+    try {
+        const files = await File.find();
+        res.status(200).json(files);
+    } catch (error) {
+        console.error('Error fetching items from DB:', error);
+        res.status(500).json({ message: "Error fetching files", error: error.message });
+    }
 });
-
 
 
 ///////////////////////////////////////////////////////////////
