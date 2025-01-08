@@ -7,7 +7,7 @@ import { useAuth } from "../../AutContext";
 
 const Post = ({ post }) => {
   const { user } = useAuth();
-  const { metadata, fileType, filename, uploadDate } = post;
+  const {title, repositoryURL, metadata, fileType, filename, uploadDate } = post;
   const [showComment, setShowComment] = useState(false);
   const [isHeartCount, setIsHeartCount] = useState(0);
 
@@ -16,14 +16,46 @@ const Post = ({ post }) => {
 
     if (fileType === "image") {
       return (
+        <>
+         <div>
+           <div className="text-slate-950 text-2xl font-bold">
+            <h1>{title}</h1>
+           </div>
+            <div>
+                <a
+              href={repositoryURL}
+              target="_blank"
+              className="text-blue-500 underline"
+            >
+            {repositoryURL}
+            </a>
+            </div>
+         </div>
+         
         <img
           src={fileUrl}
           alt={filename}
           className="flex justify-center w-full rounded-lg"
         />
+        </>
       );
     } else if (fileType === "video") {
       return (
+       <>
+        <div>
+          <div className="text-slate-950 text-2xl font-bold">
+           <h1>{title}</h1>
+          </div>
+          <div>
+              <a
+            href={repositoryURL}
+            target="_blank"
+            className="text-blue-500 underline"
+          >
+          {repositoryURL}
+          </a>
+          </div>
+        </div>
         <video
           src={fileUrl}
           controls
@@ -31,9 +63,25 @@ const Post = ({ post }) => {
         >
           Your browser does not support the video tag.
         </video>
+       </>
       );
     } else if (fileType === "docx" || fileType === "pdf") {
       return (
+       <>
+      <div>
+          <div className="text-slate-950 text-2xl font-bold">
+           <h1>{title}</h1>
+          </div>
+          <div>
+              <a
+            href={repositoryURL}
+            target="_blank"
+            className="text-blue-500 underline"
+          >
+          {repositoryURL}
+          </a>
+          </div>
+        </div>
         <a
           href={fileUrl}
           target="_blank"
@@ -42,6 +90,7 @@ const Post = ({ post }) => {
         >
           View Document: {filename}
         </a>
+       </>
       );
     }
 

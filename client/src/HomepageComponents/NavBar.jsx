@@ -6,6 +6,7 @@ import { FaHome } from "react-icons/fa";
 import { IoBrowsers } from "react-icons/io5"
 import { IoCloudUploadSharp } from "react-icons/io5";
 import { IoMdNotifications } from "react-icons/io";
+import { FaMessage } from "react-icons/fa6";
 
 
 const NavBar = () => {
@@ -115,17 +116,6 @@ const NavBar = () => {
                 </Link>
               </li>
 
-                {/*<li className="text-sm sm:text-base md:text-lg">
-                    <Link to="/feedback" className={isActive('/feedback')}>
-                    <div className='flex flex-row gap-2'>
-                      <div>
-                       <MdFeedback className='text-3xl'/>
-                      </div>
-                      <div>Feedback</div>
-                    </div>
-                    </Link>
-                  </li> */}
-
                   <li className='text-sm sm:text-base md:text-lg'>
                       <Link to='/notification' className={isActive('/notification')}>
                       <div className='flex flex-row gap-2 transition ease-in-out delay-75 hover:-translate-y-1 hover:scale-110 duration-300'>
@@ -136,6 +126,19 @@ const NavBar = () => {
                       </div>
                       </Link>
                   </li>
+
+                  <li className='text-sm sm:text-base md:text-lg'>
+                      <Link to='/message' className={isActive('/message')}>
+                      <div className='flex flex-row gap-2 transition ease-in-out delay-75 hover:-translate-y-1 hover:scale-110 duration-300'>
+                        <div>
+                          <FaMessage className='text-3xl'/>
+                        </div>
+                       {initialNavBar >= 1041 && (<div>Message</div>)}
+                      </div>
+                      </Link>
+                  </li>
+
+
                   <li>
                   {user &&  <div className="relative inline-block">
                         {/* Status Indicator */}

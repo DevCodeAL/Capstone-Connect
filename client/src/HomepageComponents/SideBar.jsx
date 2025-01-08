@@ -69,16 +69,13 @@ const SideBar = ({CloseSidebar}) => {
                         <Link to="/upload-project" className={isActive('/upload-project')}>Upload Project</Link>
                     </li>
                     <li>
-                        <Link to="/feedback" className={isActive('/feedback')}>Feedback</Link>
+                        <Link to="/message" className={isActive('/message')}>Message</Link>
                     </li>
                     <li>
                         <Link to="/myprofile" className={isActive('/myprofile')}>My Profile</Link>
                     </li>
                     </>
                 )}
-                <li>
-                    <Link to="/about" className={isActive('/about')}>About</Link>
-                </li>
 
                 {!user && (
                     <>

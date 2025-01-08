@@ -50,9 +50,9 @@ const UploadForm = ({ HandleUploadModal }) => {
 
       <form className="space-y-6" onSubmit={handleSubmit} encType="multipart/form-data">
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">
-            Title
-            <span className="text-xs block">Be specific and imagine you’re asking a question to another person.</span>
+          <label className="block text-sm font-medium">
+            Discription
+            <span className="text-xs text-gray-700 mb-2 block">Be specific and imagine you’re asking a question to another person.</span>
           </label>
           <input
             type="text"
@@ -60,11 +60,15 @@ const UploadForm = ({ HandleUploadModal }) => {
             value={formData.title}
             onChange={handleInputChange}
             className="w-full p-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500"
+            required
           />
         </div>
 
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">Choose File</label>
+          <label className="block text-sm font-medium mb-2">
+            Choose File
+            <span className="text-xs text-gray-700 mb-2 block">Only image/jpeg,. png*,video/mp4*,document/pdf,.doc,.docx to be uploaded </span>
+            </label>
           <input
             type="file"
             name="file"
@@ -75,12 +79,12 @@ const UploadForm = ({ HandleUploadModal }) => {
         </div>
 
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">
+          <label className="block text-sm font-medium mb-2">
             Repository URL
-            <span className="text-xs text-gray-500">
+          </label>
+          <span className="text-xs font-medium text-gray-700">
               Provide the full URL of your GitHub repository (e.g., https://github.com/username/repository-name).
             </span>
-          </label>
           <input
             type="url"
             name="repositoryURL"

@@ -2,6 +2,14 @@ import mongoose from 'mongoose';
 
 const fileSchema = new mongoose.Schema(
   {
+    title:{
+      type: String,
+      required: true,
+    },
+    repositoryURL:{
+      type: String,
+      required: false,
+    },
     filename: {
       type: String,
       required: true,

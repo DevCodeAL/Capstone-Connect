@@ -8,7 +8,7 @@ import ForgotPass from './components/Forgot-Password';
 import CreateNewPass from './components/Create-new-password';
 import BrowseProject from './HomepageComponents/BrowseProject';
 import UploadProject from './HomepageComponents/UploadProject';
-import FeedBack from './HomepageComponents/Feedback';
+import Message from './HomepageComponents/Message';
 import MyProfile from './HomepageComponents/MyProfile';
 import { useAuth } from './AutContext';
 import SideBar from './HomepageComponents/SideBar';
@@ -63,15 +63,15 @@ function App() {
                 <UploadProject />
             </ProtectedRoute>} />
 
-            <Route path="/feedback" element={
-              <ProtectedRoute>
-                  <FeedBack />
-              </ProtectedRoute>
-              } />
-
               <Route path='notification' element={
                 <ProtectedRoute>
                     <Notification/>
+                </ProtectedRoute>
+              }/>
+
+              <Route path='message' element={
+                <ProtectedRoute>
+                  <Message/>
                 </ProtectedRoute>
               }/>
 

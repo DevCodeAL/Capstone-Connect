@@ -172,6 +172,7 @@ router.get('/profile', authMiddleware, async (req, res)=>{
 router.post("/stats", upload.single("file"), async (req, res) => {
   try {
     const { originalname, mimetype, size, path } = req.file; // Access uploaded file details
+    const {title, repositoryURL} = req.body;
 
        // Helper function to determine the file type
     const fileType = getFileType(mimetype);
@@ -180,6 +181,8 @@ router.post("/stats", upload.single("file"), async (req, res) => {
     }
   
     const file = new File({
+      title: title,
+      repositoryURL: repositoryURL,
       filename: originalname,
       fileType,
       mimetype,
