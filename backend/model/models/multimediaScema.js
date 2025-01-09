@@ -4,40 +4,48 @@ const fileSchema = new mongoose.Schema(
   {
     title:{
       type: String,
-      required: true,
+      default: null,
     },
     repositoryURL:{
       type: String,
-      required: false,
+      default: null,
     },
-    filename: {
-      type: String,
-      required: true,
-    },
-    fileType: {
-      type: String,
-      required: true,
-      enum: ['pdf', 'docx', 'doc', 'image', 'video'],
-    },
-    mimetype: {
-      type: String,
-      required: true,
-    },
-    size: {
-      type: Number,
-      required: true,
-    },
+    
     uploadDate: {
       type: Date,
       default: Date.now,
     },
-    uploader: {
-      type: String, // or an ObjectId if linked to a user schema
-      required: false,
-    },
-    metadata: {
-      type: mongoose.Schema.Types.Mixed, // Additional info if needed
-      default: {},
+
+    files: {
+      filename: {
+        type: String,
+        default: null,
+      },
+      fileType: {
+        type: String,
+        default: null,
+        enum: ['pdf', 'docx', 'doc', 'image', 'video'],
+      },
+      mimetype: {
+        type: String,
+        default: null,
+      },
+      size: {
+        type: Number,
+        default: null,
+      },
+      uploadDate: {
+        type: Date,
+        default: Date.now,
+      },
+      uploader: {
+        type: String, // or an ObjectId if linked to a user schema
+        required: false,
+      },
+      metadata: {
+        type: mongoose.Schema.Types.Mixed, // Additional info if needed
+        default: {},
+      },
     },
   },
   {
