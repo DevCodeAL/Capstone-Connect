@@ -3,7 +3,7 @@ import NewFeed from "./PostFeedComponents/Feed";
 const Home = ()=>{
     return(
         <>
-           <main>
+           <main className="animate-fade-right">
               {/* Reusable Component Content Post */}
                 <div className="flex justify-center items-center mx-7 relative top-24 rounded-xl bg-gray-500 bg-clip-padding backdrop-filter  backdrop-blur bg-opacity-10 backdrop-saturate-100 backdrop-contrast-100 shadow-xl">
                     <div className="flex flex-col p-8">

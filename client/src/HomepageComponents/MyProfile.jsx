@@ -21,7 +21,7 @@ const Profile = () => {
   return (
     <div>
       {user ? (
-        <div className="flex flex-col justify-center items-center min-h-screen text-2xl font-bold">
+        <div className="flex flex-col justify-center items-center min-h-screen text-2xl font-bold animate-fade-right">
           <h1>Welcome, {user?.userName}</h1>
           <p>Email: {user?.userEmail}</p>
           <img src={user.userPicture} alt="user picture" />

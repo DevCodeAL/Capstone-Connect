@@ -5,12 +5,17 @@ import { FaPeopleArrows } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { useAuth } from "../../AutContext";
 import { Button, Tooltip } from "flowbite-react";
+import { DeleteModal } from "./Modal/DeleteModal";
+import { MainOptionModal } from "./Modal/MainOptionModal";
+
 
 const Post = ({ post }) => {
   const { user } = useAuth();
   const {title, repositoryURL, files, uploadDate, filename, } = post;
   const [showComment, setShowComment] = useState(false);
   const [isHeartCount, setIsHeartCount] = useState(0);
+  const [openModal, setOpenModal] = useState(false);
+  const [alertModal, setAlert] = useState(false);
 
   const renderPost = () => {
     const fileUrl = `http://localhost:5000/${files?.metadata?.path}`;
@@ -126,12 +131,30 @@ const Post = ({ post }) => {
     <div className="max-w-2xl h-auto border rounded-lg p-3 mb-4 bg-white shadow-md relative">
 
       {/* Option button */}
-      <Tooltip content="Tooltip content" placement="bottom" className="absolute translate-y-11 translate-x-72 left-0">
-        <Button className="absolute top-2 right-5 focus:ring-0 hover:animate-pulse transition-transform ease-in-out delay-75 hover:-translate-y-0 hover:scale-110 duration-300">
+      <Tooltip content="Option Post" placement="bottom" className="absolute translate-y-11 translate-x-72 left-0 bg-slate-800">
+        <Button onClick={() => setOpenModal(true)} className="absolute top-2 right-5 focus:ring-0 hover:animate-pulse transition-transform ease-in-out delay-75 hover:-translate-y-0 hover:scale-110 duration-300">
           <img src="/png/option-dots.png" className="w-9" alt="Options"/>
         </Button>
       </Tooltip>
 
+      {/* Main Modal Option */}
+      <MainOptionModal 
+        openModal={openModal}
+        closeMainModal={()=> setOpenModal(!true)}
+        deleteAlert={()=> setAlert(true)}
+        />
+
+         {/*Delete Modal  */}
+          <DeleteModal ModalAlert={alertModal} 
+          closeModalAlert={()=> setAlert(!true)}
+          saveData={()=> {
+            setAlert(true);
+            alert('Save!');
+            setAlert(!true);
+          }} 
+          cancelData={()=> setAlert(!true)}
+          />
+  
       {/* Profile Picture */}
       <div className="relative inline-block">
         <Link to="/myprofile">
