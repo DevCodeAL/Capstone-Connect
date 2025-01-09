@@ -7,21 +7,45 @@ import { useAuth } from "../../AutContext";
 
 const Post = ({ post }) => {
   const { user } = useAuth();
-  const {title, repositoryURL, metadata, fileType, filename, uploadDate } = post;
+  const {title, repositoryURL, files, uploadDate, filename, } = post;
   const [showComment, setShowComment] = useState(false);
   const [isHeartCount, setIsHeartCount] = useState(0);
 
   const renderPost = () => {
-    const fileUrl = `http://localhost:5000/${metadata.path}`;
+    const fileUrl = `http://localhost:5000/${files?.metadata?.path}`;
 
-    if (fileType === "image") {
+    // Ensure `files` exists and has the necessary properties before accessing them
+  if (!files || !files.metadata) {
+    return  <div>
+    <div className="text-slate-950 text-lg">
+     <h1>{title}</h1>
+    </div>
+
+     <div>    
+      <a
+       href={repositoryURL}
+       target="_blank"
+       className="text-blue-500 underline"
+     >
+     {repositoryURL}
+     </a>
+     </div>
+
+        <div>
+            <iframe src={repositoryURL} className="flex justify-center w-full h-screen rounded-lg"></iframe>
+          </div>
+      </div> 
+  }
+
+    if (files.fileType === "image") {
       return (
         <>
          <div>
-           <div className="text-slate-950 text-2xl font-bold">
+           <div className="text-slate-950 text-lg">
             <h1>{title}</h1>
            </div>
-            <div>
+
+            <div>    
                 <a
               href={repositoryURL}
               target="_blank"
@@ -31,7 +55,7 @@ const Post = ({ post }) => {
             </a>
             </div>
          </div>
-         
+
         <img
           src={fileUrl}
           alt={filename}
@@ -39,11 +63,11 @@ const Post = ({ post }) => {
         />
         </>
       );
-    } else if (fileType === "video") {
+    } else if (files.fileType === "video") {
       return (
        <>
         <div>
-          <div className="text-slate-950 text-2xl font-bold">
+          <div className="text-slate-950 text-lg">
            <h1>{title}</h1>
           </div>
           <div>
@@ -65,31 +89,27 @@ const Post = ({ post }) => {
         </video>
        </>
       );
-    } else if (fileType === "docx" || fileType === "pdf") {
+    } else if (files.fileType === "pdf") {
       return (
        <>
       <div>
-          <div className="text-slate-950 text-2xl font-bold">
+          <div className="text-slate-950 text-lg">
            <h1>{title}</h1>
           </div>
           <div>
-              <a
-            href={repositoryURL}
+            <a
+            href={fileUrl}
             target="_blank"
+            rel="noopener noreferrer"
             className="text-blue-500 underline"
           >
-          {repositoryURL}
+          {files.filename}
           </a>
           </div>
+          <div>
+            <iframe src={fileUrl} className="flex justify-center w-full h-screen rounded-lg"></iframe>
+          </div>
         </div>
-        <a
-          href={fileUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="text-blue-500 underline"
-        >
-          View Document: {filename}
-        </a>
        </>
       );
     }

@@ -10,6 +10,7 @@ const NewFeed = () => {
     try {
       const response = await fetch('http://localhost:5000/api/file');
       const data = await response.json();
+       console.log(data);
       setPosts(data);
     } catch (error) {
       console.error("Failed to fetch posts:", error);
