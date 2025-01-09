@@ -4,6 +4,7 @@ import { MdFeedback } from "react-icons/md";
 import { FaPeopleArrows } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { useAuth } from "../../AutContext";
+import { Button, Tooltip } from "flowbite-react";
 
 const Post = ({ post }) => {
   const { user } = useAuth();
@@ -122,9 +123,17 @@ const Post = ({ post }) => {
   };
 
   return (
-    <div className="max-w-2xl h-auto border rounded-lg p-3 mb-4 bg-white shadow-md">
+    <div className="max-w-2xl h-auto border rounded-lg p-3 mb-4 bg-white shadow-md relative">
+
+      {/* Option button */}
+      <Tooltip content="Tooltip content" placement="bottom" className="absolute translate-y-11 translate-x-72 left-0">
+        <Button className="absolute top-2 right-5 focus:ring-0 hover:animate-pulse transition-transform ease-in-out delay-75 hover:-translate-y-0 hover:scale-110 duration-300">
+          <img src="/png/option-dots.png" className="w-9" alt="Options"/>
+        </Button>
+      </Tooltip>
+
+      {/* Profile Picture */}
       <div className="relative inline-block">
-        {/* Profile Picture */}
         <Link to="/myprofile">
           <img
             className="rounded-full w-12 h-12 object-cover border-2 border-gray-200"
