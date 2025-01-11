@@ -2,9 +2,7 @@
 import { Modal } from "flowbite-react";
 import { useState } from "react";
 
-export default function UploadForm({setOpenForm, setIsClose}) {
-  let closeEvent = !true;
-
+export function EditPost({editOpen, editClose}) {
   const [formData, setFormData] = useState({
     title: "",
     file: null,
@@ -35,18 +33,19 @@ export default function UploadForm({setOpenForm, setIsClose}) {
       });
 
       if (!response.ok) throw new Error("File upload failed");
+
       alert("File uploaded successfully!");
-      setIsClose(closeEvent);
+      HandleUploadModal();
     } catch (error) {
       alert(error.message);
     }
 }
   return (
     <>
-      <Modal show={setOpenForm} onClose={setIsClose}  className="flex justify-center shadow-md bg-black w-screen">
+      <Modal show={editOpen} onClose={editClose}  className="flex justify-center shadow-md bg-black w-screen">
       <div className={`fixed inset-0 flex items-center justify-center animate-fade-right`}>
       <div className="bg-white rounded-lg shadow-md w-full max-w-md">
-        <Modal.Header>Create Post</Modal.Header>
+        <Modal.Header>Edit Post</Modal.Header>
         <Modal.Body>
                <form className="space-y-6" onSubmit={handleSubmit} encType="multipart/form-data">
                  <div>

@@ -7,20 +7,22 @@ import { useAuth } from "../../AutContext";
 import { Button, Tooltip } from "flowbite-react";
 import { DeleteModal } from "./Modal/DeleteModal";
 import { MainOptionModal } from "./Modal/MainOptionModal";
-
+import { EditPost } from "./Modal/EditPost";
+import DocViewer, { DocViewerRenderers } from "@cyntler/react-doc-viewer";
+import "@cyntler/react-doc-viewer/dist/index.css";
 
 const Post = ({ post }) => {
   const { user } = useAuth();
-  const {title, repositoryURL, files, uploadDate, filename, } = post;
+  const {title, repositoryURL, mimetype, files, uploadDate, filename, } = post;
   const [showComment, setShowComment] = useState(false);
   const [isHeartCount, setIsHeartCount] = useState(0);
   const [openModal, setOpenModal] = useState(false);
   const [alertModal, setAlert] = useState(false);
+  const [editPost, setEditPost] = useState(false);
 
   const renderPost = () => {
     const fileUrl = `http://localhost:5000/${files?.metadata?.path}`;
 
-    // Ensure `files` exists and has the necessary properties before accessing them
   if (!files || !files.metadata) {
     return  <div>
     <div className="text-slate-950 text-lg">
@@ -95,7 +97,7 @@ const Post = ({ post }) => {
         </video>
        </>
       );
-    } else if (files.fileType === "pdf") {
+    } else if (files.fileType === "pdf" || files.fileType === "docx") {
       return (
        <>
       <div>
@@ -113,7 +115,15 @@ const Post = ({ post }) => {
           </a>
           </div>
           <div>
-            <iframe src={fileUrl} className="flex justify-center w-full h-screen rounded-lg"></iframe>
+            <DocViewer
+            documents={[
+              {
+                 fileName: files.filename,
+                 uri: fileUrl, // Correctly pass the URL as an array of objects
+              },
+            ]}
+            pluginRenderers={DocViewerRenderers}
+          />
           </div>
         </div>
        </>
@@ -136,13 +146,17 @@ const Post = ({ post }) => {
           <img src="/png/option-dots.png" className="w-9" alt="Options"/>
         </Button>
       </Tooltip>
-
+     
       {/* Main Modal Option */}
       <MainOptionModal 
         openModal={openModal}
         closeMainModal={()=> setOpenModal(!true)}
         deleteAlert={()=> setAlert(true)}
+        editOpen={()=> setEditPost(true)}
         />
+
+        {/* Edit Post */}
+        <EditPost editOpen={editPost} editClose={()=> setEditPost(!true)}/>
 
          {/*Delete Modal  */}
           <DeleteModal ModalAlert={alertModal} 

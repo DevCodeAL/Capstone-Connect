@@ -28,16 +28,15 @@ const NewFeed = () => {
 
   return (
     <>
-      {isOpen && <UploadForm HandleUploadModal={HandleClose} />}
-      {!isOpen && (
+       <UploadForm setOpenForm={isOpen} setIsClose={HandleClose} />
         <>
           <div className="my-2">
-            <button
-              onClick={() => setIsOpen(true)}
-              className="w-full p-2 text-sm font-medium text-gray-600 border border-gray-300 bg-gray-100 rounded-full hover:bg-gray-200"
-            >
-              Create Post
-            </button>
+          <button
+          onClick={() => setIsOpen(true)}
+          className="w-full p-2 text-sm font-medium text-white border border-gray-300 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full transition duration-300 ease-in-out transform hover:bg-gradient-to-r hover:from-blue-700 hover:to-purple-800 hover:scale-105"
+        >
+          Create Post
+        </button>
           </div>
 
           {/* Display List of Posts */}
@@ -45,7 +44,6 @@ const NewFeed = () => {
               <Post key={post._id} post={post} />
           ))}
         </>
-      )}
     </>
   );
 };

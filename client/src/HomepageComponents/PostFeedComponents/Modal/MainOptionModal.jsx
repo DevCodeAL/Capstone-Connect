@@ -1,8 +1,7 @@
 "use client";
 import { Button, Modal } from "flowbite-react";
 
-export function MainOptionModal({openModal, closeMainModal, deleteAlert}) {
-    
+export function MainOptionModal({openModal, closeMainModal, deleteAlert, editOpen}) {
 
   return (
     <>
@@ -14,14 +13,19 @@ export function MainOptionModal({openModal, closeMainModal, deleteAlert}) {
         <div className="bg-white rounded-lg shadow-md w-full max-w-md">
             <Modal.Header className="text-base p-3">Option Post</Modal.Header>
             <Modal.Body className="bg-slate-900">
+
             <div className="flex flex-col space-y-2">
-                <button className="text-base leading-relaxed text-gray-500 dark:text-gray-400 hover:text-slate-200">
-                Edit Post
-                </button>
-                <button className="text-base leading-relaxed text-gray-500 dark:text-gray-400 hover:text-slate-200">
-                Edit Privacy
-                </button>
-                <Button onClick={deleteAlert} className="text-base leading-relaxed text-gray-500 dark:text-gray-400 hover:text-slate-200">Delete Post</Button>
+            <Button onClick={editOpen}  className="text-base leading-relaxed text-gray-500 dark:text-gray-400 hover:text-slate-200">
+              Edit Post
+              </Button>
+
+                <Button className="text-base leading-relaxed text-gray-500 dark:text-gray-400 hover:text-slate-200">
+                  Edit Privacy
+                  </Button>
+
+                <Button onClick={deleteAlert} className="text-base leading-relaxed text-gray-500 dark:text-gray-400 hover:text-slate-200">
+                  Delete Post
+                  </Button>
             </div>
             </Modal.Body>
         </div>

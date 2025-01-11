@@ -28,6 +28,6 @@ export default {
   },
   plugins: [
     require('tailwindcss-animated'),
-    flowbite, // Use Flowbite plugin correctly
+    flowbite, 
   ],
 };
