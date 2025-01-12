@@ -8,17 +8,18 @@ import { Button, Tooltip } from "flowbite-react";
 import { DeleteModal } from "./Modal/DeleteModal";
 import { MainOptionModal } from "./Modal/MainOptionModal";
 import { EditPost } from "./Modal/EditPost";
-import DocViewer, { DocViewerRenderers } from "@cyntler/react-doc-viewer";
-import "@cyntler/react-doc-viewer/dist/index.css";
+import { WebViewerModal } from "./WebViewer";
+
 
 const Post = ({ post }) => {
   const { user } = useAuth();
-  const {title, repositoryURL, mimetype, files, uploadDate, filename, } = post;
+  const {title, repositoryURL, files, uploadDate, filename, } = post;
   const [showComment, setShowComment] = useState(false);
   const [isHeartCount, setIsHeartCount] = useState(0);
   const [openModal, setOpenModal] = useState(false);
   const [alertModal, setAlert] = useState(false);
   const [editPost, setEditPost] = useState(false);
+  const [webOpen, setWebOpen] = useState(false);
 
   const renderPost = () => {
     const fileUrl = `http://localhost:5000/${files?.metadata?.path}`;
@@ -97,7 +98,7 @@ const Post = ({ post }) => {
         </video>
        </>
       );
-    } else if (files.fileType === "pdf" || files.fileType === "docx") {
+    } else if (files.fileType === "pdf" || files.fileType === "docx" || files.fileType === 'pptx' || files.fileType === 'ppt') {
       return (
        <>
       <div>
@@ -105,25 +106,17 @@ const Post = ({ post }) => {
            <h1>{title}</h1>
           </div>
           <div>
-            <a
-            href={fileUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-blue-500 underline"
-          >
-          {files.filename}
-          </a>
+            <Button className="border border-white focus:ring-0" onClick={()=> setWebOpen(true)}>
+               <span className="text-blue-500 underline hover:text-blue-700">{files.filename}</span>
+            </Button>
           </div>
+
+          {/* Web Viewer Modal */}
           <div>
-            <DocViewer
-            documents={[
-              {
-                 fileName: files.filename,
-                 uri: fileUrl, // Correctly pass the URL as an array of objects
-              },
-            ]}
-            pluginRenderers={DocViewerRenderers}
-          />
+          <WebViewerModal fileUrl={fileUrl}
+           FileName={files.filename}
+          WebViewerOpen={webOpen} 
+          WebViewerClose={()=> setWebOpen(!true)}/>
           </div>
         </div>
        </>
@@ -257,3 +250,6 @@ const Post = ({ post }) => {
 };
 
 export default Post;
+
+
+

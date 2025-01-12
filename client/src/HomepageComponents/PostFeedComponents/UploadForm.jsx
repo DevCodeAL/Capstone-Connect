@@ -67,12 +67,12 @@ export default function UploadForm({setOpenForm, setIsClose}) {
                  <div>
                    <label className="block text-sm font-medium mb-2">
                      Choose File
-                     <span className="text-xs text-gray-700 mb-2 block">Only image/jpeg,. png*,video/mp4*,document/pdf,.doc,.docx to be uploaded </span>
+                     <span className="text-xs text-gray-700 mb-2 block">Only image/jpeg,. png*,video/mp4*,document/pdf,.doc,.docx,.pptx,.ppt to be uploaded </span>
                      </label>
                    <input
                      type="file"
                      name="file"
-                     accept="image/*,video/*,.pdf,.doc,.docx"
+                     accept="image/*,video/*,.pdf,.doc,.docx,.pptx,.ppt"
                      onChange={handleFileChange}
                      className="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 focus:ring-blue-500 focus:border-blue-500"
                    />
