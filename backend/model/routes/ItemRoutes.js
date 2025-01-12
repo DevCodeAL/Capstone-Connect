@@ -213,11 +213,15 @@ function getFileType(mimetype) {
   if (mimetype.startsWith("image")) return "image";
   if (mimetype.startsWith("video")) return "video";
   if (mimetype === "application/pdf") return "pdf";
-  if (mimetype === "application/msword") return "doc";
+  if (mimetype === "application/vnd.ms-powerpoint") return "ppt"; // For .ppt files
+  if (mimetype === "application/vnd.openxmlformats-officedocument.presentationml.presentation")
+    return "pptx"; // For .pptx files
+  if (mimetype === "application/msword") return "doc"; // For .doc files
   if (mimetype === "application/vnd.openxmlformats-officedocument.wordprocessingml.document")
-    return "docx";
+    return "docx"; // For .docx files
   return "unknown";
 }
+
 
 
 // Endpoint to list files with unique identifiers
