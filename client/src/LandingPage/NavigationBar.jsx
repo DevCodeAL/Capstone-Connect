@@ -17,6 +17,7 @@ const NavigationBar = ()=>{
         return ()=> window.removeEventListener('resize', handleWidthEvent);
   },[]);
 
+  // Scroll Event to create background color of navbar if scroll
   useEffect(()=>{
     const handleScrollEvent = ()=> {
         if(window.scrollY > 0){

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { FaHeart } from "react-icons/fa";
 import { MdFeedback } from "react-icons/md";
 import { FaPeopleArrows } from "react-icons/fa";
@@ -20,9 +20,44 @@ const Post = ({ post }) => {
   const [alertModal, setAlert] = useState(false);
   const [editPost, setEditPost] = useState(false);
   const [webOpen, setWebOpen] = useState(false);
+  const [isPlay, setPlay] = useState(false);
+
+  const currentRef = useRef(null);
 
   const renderPost = () => {
     const fileUrl = `http://localhost:5000/${files?.metadata?.path}`;
+
+    useEffect(()=>{
+      if (!currentRef.current) return;
+
+      const observer = new IntersectionObserver((entries)=>{
+        entries.forEach((entry)=> {
+            if(entry.isIntersecting){
+              currentRef.current.play();
+                setPlay(true);
+            } else {
+              currentRef.current.pause();
+                 setPlay(false);
+            }
+        })
+      }, {
+        threshold: 1.0, // adjust the viewport scope if needed
+      }
+    )
+  
+    if(currentRef.current){
+      observer.observe(currentRef.current)
+    };
+    
+  
+    return ()=> {
+      if(currentRef.current){
+        observer.unobserve(currentRef.current)
+      };
+    }
+  
+    },[]);
+  
 
   if (!files || !files.metadata) {
     return  <div>
@@ -89,13 +124,16 @@ const Post = ({ post }) => {
           </a>
           </div>
         </div>
+
         <video
+         ref={currentRef}
           src={fileUrl}
           controls
           className="flex justify-center w-full rounded-lg"
         >
           Your browser does not support the video tag.
         </video>
+       
        </>
       );
     } else if (files.fileType === "pdf" || files.fileType === "docx" || files.fileType === 'pptx' || files.fileType === 'ppt') {
@@ -114,9 +152,9 @@ const Post = ({ post }) => {
           {/* Web Viewer Modal */}
           <div>
           <WebViewerModal fileUrl={fileUrl}
-           FileName={files.filename}
-          WebViewerOpen={webOpen} 
-          WebViewerClose={()=> setWebOpen(!true)}/>
+            FileName={files.filename}
+            WebViewerOpen={webOpen} 
+            WebViewerClose={()=> setWebOpen(!true)}/>
           </div>
         </div>
        </>

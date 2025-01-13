@@ -1,15 +1,11 @@
-
 import { Modal } from "flowbite-react";
 import { useState } from "react";
+import UploadSpinner from "./Modal/Spinner/UploadSpinner";
 
 export default function UploadForm({setOpenForm, setIsClose}) {
+  const [formData, setFormData] = useState({ title: "", file: null, repositoryURL: "" });
+  const [isLoading, setLoading] = useState(false);
   let closeEvent = !true;
-
-  const [formData, setFormData] = useState({
-    title: "",
-    file: null,
-    repositoryURL: "",
-  });
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -22,6 +18,7 @@ export default function UploadForm({setOpenForm, setIsClose}) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
 
     const data = new FormData();
     data.append("title", formData.title);
@@ -35,15 +32,21 @@ export default function UploadForm({setOpenForm, setIsClose}) {
       });
 
       if (!response.ok) throw new Error("File upload failed");
-      alert("File uploaded successfully!");
-      setIsClose(closeEvent);
+      setTimeout(()=>{
+          setLoading(false);
+          setIsClose(closeEvent);
+      }, 2000);
     } catch (error) {
       alert(error.message);
     }
 }
   return (
     <>
+      {/* Modal */}
       <Modal show={setOpenForm} onClose={setIsClose}  className="flex justify-center shadow-md bg-black w-screen">
+         {/* Upload Spinner */}
+          {isLoading &&  <UploadSpinner/>}
+
       <div className={`fixed inset-0 flex items-center justify-center animate-fade-right`}>
       <div className="bg-white rounded-lg shadow-md w-full max-w-md">
         <Modal.Header>Create Post</Modal.Header>
