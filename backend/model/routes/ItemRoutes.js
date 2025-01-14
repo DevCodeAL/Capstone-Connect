@@ -171,34 +171,37 @@ router.get('/profile', authMiddleware, async (req, res)=>{
 // Upload files , Pdf, Docx, Doc Image, Videos
 router.post("/stats", upload.single("file"), async (req, res) => {
   try {
-    const {title, repositoryURL, uploadDate} = req.body;
+    const { title, repositoryURL, uploadDate, googleId, userPicture, userName } = req.body;
 
     let fileData = null;
-    if(req.file){
-      const { originalname, mimetype, size, path } = req.file; // Access uploaded file details
-      
-     // Helper function to determine the file type
-    const fileType = getFileType(mimetype);
-    if (fileType === "unknown") {
+    if (req.file) {
+      const { originalname, mimetype, size, path } = req.file;
+
+      // Determine file type
+      const fileType = getFileType(mimetype);
+      if (fileType === "unknown") {
         return res.status(400).json({ message: "Unsupported file type" });
-    }
+      }
 
       fileData = {
-      filename: originalname,
-      fileType,
-      mimetype,
-      size,
-      metadata: { path }, // Save the path in metadata if needed
-      }
+        filename: originalname,
+        fileType,
+        mimetype,
+        size,
+        metadata: { path }, // Save path for internal reference
+      };
     }
 
+    // Create and save file document
     const newItem = new File({
-      title: title,
-      repositoryURL: repositoryURL,
+      title,
+      repositoryURL,
       files: fileData,
-      uploadDate: uploadDate,
-    })
-
+      uploadDate,
+      googleId,
+      userPicture,
+      userName,
+    });
     await newItem.save();
 
     res.status(201).json({ message: "File uploaded successfully", newItem });

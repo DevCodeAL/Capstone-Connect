@@ -15,6 +15,18 @@ const fileSchema = new mongoose.Schema(
       type: Date,
       default: Date.now,
     },
+    googleId: {
+      type: String, // or an ObjectId if linked to a user schema
+      required: null,
+    }, 
+    userPicture:{
+      type: String,
+      default: null,
+    },
+    userName:{
+      type: String,
+      default: null,
+    },
 
     files: {
       filename: {
@@ -37,10 +49,6 @@ const fileSchema = new mongoose.Schema(
       uploadDate: {
         type: Date,
         default: Date.now,
-      },
-      uploader: {
-        type: String, // or an ObjectId if linked to a user schema
-        required: false,
       },
       metadata: {
         type: mongoose.Schema.Types.Mixed, // Additional info if needed
