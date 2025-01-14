@@ -3,7 +3,7 @@ import { useAuth } from "../AutContext";
 import { useNavigate } from "react-router-dom";
 
 function GoogleSignIn() {
-  const { HandleGoogleLoginSuccess, user } = useAuth();
+  const { HandleGoogleLoginSuccess } = useAuth();
   const navigate = useNavigate();
 
   const HandleGoogleSignIn = async (credentialResponse) => {

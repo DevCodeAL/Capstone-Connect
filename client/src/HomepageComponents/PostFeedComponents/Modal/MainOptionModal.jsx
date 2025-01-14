@@ -12,18 +12,18 @@ export function MainOptionModal({openModal, closeMainModal, deleteAlert, editOpe
         <div className="fixed inset-0 flex items-center justify-center animate-fade-right">
         <div className="bg-white rounded-lg shadow-md w-full max-w-md">
             <Modal.Header className="text-base p-3">Option Post</Modal.Header>
-            <Modal.Body className="bg-slate-900">
+            <Modal.Body>
 
             <div className="flex flex-col space-y-2">
-            <Button onClick={editOpen}  className="text-base leading-relaxed text-gray-500 dark:text-gray-400 hover:text-slate-200">
+            <Button onClick={editOpen}  className="text-base leading-relaxed focus:ring-0 border-0 border-b-2 rounded-none text-gray-600 hover:text-gray-800 font-bold">
               Edit Post
               </Button>
 
-                <Button className="text-base leading-relaxed text-gray-500 dark:text-gray-400 hover:text-slate-200">
+                <Button className="text-base leading-relaxed focus:ring-0 border-0 border-b-2 rounded-none  text-gray-600 hover:text-gray-800 font-bold">
                   Edit Privacy
                   </Button>
 
-                <Button onClick={deleteAlert} className="text-base leading-relaxed text-gray-500 dark:text-gray-400 hover:text-slate-200">
+                <Button onClick={deleteAlert} className="text-base leading-relaxed focus:ring-0 border-0 border-b-2 rounded-none text-gray-600 hover:text-gray-800 font-bold">
                   Delete Post
                   </Button>
             </div>

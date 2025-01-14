@@ -1,11 +1,37 @@
 import { Modal } from "flowbite-react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import UploadSpinner from "./Modal/Spinner/UploadSpinner";
+import { useAuth } from '../../AutContext';
 
 export default function UploadForm({setOpenForm, setIsClose}) {
-  const [formData, setFormData] = useState({ title: "", file: null, repositoryURL: "" });
+  const { user } = useAuth();
+  const [formData, setFormData] = useState(
+    { title: "",
+     file: null,
+     repositoryURL: "" ,
+     googleId: "",
+     userPicture: "",
+     userName: "",
+    });
+
   const [isLoading, setLoading] = useState(false);
   let closeEvent = !true;
+
+// users aunthenticate
+const userID = user?.userId;
+const currentUserPicture = user?.userPicture;
+const currentUserName = user?.userName;
+
+  useEffect(() => {
+    setFormData((prev) => ({
+      ...prev,
+      googleId: userID || prev.googleId,
+      userPicture: currentUserPicture || 
+      prev.googleId, userName: currentUserName || ""
+    }));
+    
+  }, [userID, currentUserPicture, currentUserName]);
+
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -24,6 +50,9 @@ export default function UploadForm({setOpenForm, setIsClose}) {
     data.append("title", formData.title);
     data.append("file", formData.file);
     data.append("repositoryURL", formData.repositoryURL);
+    data.append("googleId", userID);
+    data.append("userPicture", currentUserPicture);
+    data.append("userName", currentUserName);
 
     try {
       const response = await fetch("http://localhost:5000/api/stats", {
@@ -52,6 +81,11 @@ export default function UploadForm({setOpenForm, setIsClose}) {
         <Modal.Header>Create Post</Modal.Header>
         <Modal.Body>
                <form className="space-y-6" onSubmit={handleSubmit} encType="multipart/form-data">
+               <div>
+                <input type="hidden" name="googleId" value={formData.googleId} />
+                <input type="hidden" name="userPicture" value={formData.userPicture} />
+                <input type="hidden" name="userName" value={formData.userName} />
+               </div>
                  <div>
                    <label className="block text-sm font-medium">
                      Discription

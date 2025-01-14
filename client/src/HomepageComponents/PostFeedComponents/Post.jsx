@@ -3,7 +3,6 @@ import { FaHeart } from "react-icons/fa";
 import { MdFeedback } from "react-icons/md";
 import { FaPeopleArrows } from "react-icons/fa";
 import { Link } from "react-router-dom";
-import { useAuth } from "../../AutContext";
 import { Button, Tooltip } from "flowbite-react";
 import { DeleteModal } from "./Modal/DeleteModal";
 import { MainOptionModal } from "./Modal/MainOptionModal";
@@ -12,8 +11,7 @@ import { WebViewerModal } from "./WebViewer";
 
 
 const Post = ({ post }) => {
-  const { user } = useAuth();
-  const {title, repositoryURL, files, uploadDate, filename, } = post;
+  const {title, repositoryURL, files, uploadDate, filename, userPicture, userName } = post;
   const [showComment, setShowComment] = useState(false);
   const [isHeartCount, setIsHeartCount] = useState(0);
   const [openModal, setOpenModal] = useState(false);
@@ -21,7 +19,7 @@ const Post = ({ post }) => {
   const [editPost, setEditPost] = useState(false);
   const [webOpen, setWebOpen] = useState(false);
   const [isPlay, setPlay] = useState(false);
-
+ 
   const currentRef = useRef(null);
 
   const renderPost = () => {
@@ -41,7 +39,7 @@ const Post = ({ post }) => {
             }
         })
       }, {
-        threshold: 1.0, // adjust the viewport scope if needed
+        threshold: 1.0, // adjust the viewport scope 
       }
     )
   
@@ -49,7 +47,7 @@ const Post = ({ post }) => {
       observer.observe(currentRef.current)
     };
     
-  
+  // Cleanup 
     return ()=> {
       if(currentRef.current){
         observer.unobserve(currentRef.current)
@@ -168,6 +166,17 @@ const Post = ({ post }) => {
     setShowComment((prev) => !prev);
   };
 
+  // Handle Submit for User Heart Reactions // 
+  async function HandleClickHeart(){
+    try {
+        const response = await fetch('http://localhost:5000/heart/api');
+        setIsHeartCount()
+        console.log(response);
+    } catch (error) {
+      console.error({message: 'Error no reaction', error});
+    }
+  }
+
   return (
     <div className="max-w-2xl h-auto border rounded-lg p-3 mb-4 bg-white shadow-md relative">
 
@@ -205,14 +214,14 @@ const Post = ({ post }) => {
         <Link to="/myprofile">
           <img
             className="rounded-full w-12 h-12 object-cover border-2 border-gray-200"
-            src={user?.userPicture}
-            alt={`${user?.userName}'s Profile`}
+            src={userPicture}
+            alt={`${userName}'s Profile`}
           />
         </Link>
 
         <Link to="/myprofile">
           <span className="absolute top-2 left-14 font-semibold text-nowrap underline">
-            {user?.userName.toUpperCase()}
+            {userName?.toUpperCase()}
           </span>
         </Link>
 
@@ -226,7 +235,8 @@ const Post = ({ post }) => {
       <p className="text-sm text-gray-500 mt-2">
         Uploaded on: {new Date(uploadDate).toLocaleString()}
       </p>
-
+          
+          {/* Heart Reactions */}
       <div className="flex justify-evenly mt-4">
         <button
           onClick={() => setIsHeartCount(isHeartCount + 1)}
