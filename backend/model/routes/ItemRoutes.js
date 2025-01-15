@@ -7,6 +7,7 @@ import { OAuth2Client } from 'google-auth-library';
 import UserItems from '../models/googleSignupSchema.js';
 import upload from '../../middleware/multerMiddleware.js';
 import File from '../models/multimediaScema.js';
+import Reaction from '../models/userReaction.js';
 
 const router = express.Router();
 
@@ -237,6 +238,53 @@ router.get('/file', async (req, res) => {
         res.status(500).json({ message: "Error fetching files", error: error.message });
     }
 });
+
+// API Routes for Heart user reactions
+router.post("/heart", async (req, res) => {
+  try {
+    console.log("Incoming Request Body:", req.body);
+      const { userReaction, userId } = req.body;
+
+      const userExist = Reaction.findOneAndUpdate({ userId });
+
+      // if(userExist){
+      //   return res.status(200).json({message: "User Is exist!"});
+      // }
+
+
+      // Create new reaction entry
+      const newReaction = new Reaction({
+          userReaction,
+          userId: userId.googleId,
+      });
+
+      await newReaction.save();
+
+      res.status(200).json({
+          success: true,
+          message: "Reaction successfully saved",
+          data: newReaction,
+      });
+  } catch (error) {
+      console.error("Error handling heart reaction:", error.message);
+      res.status(500).json({
+          success: false,
+          message: "Failed to save reaction",
+          error: error.message,
+      });
+  }
+});
+
+// Get User Count
+router.get('/hear-react', async (req, res)=>{
+    try {
+      const reactItems = await Reaction.find();
+      res.status(200).json(reactItems);
+    } catch (error) {
+      res.status(500).json({ message: 'Internal Server Error', error: err.message });
+    }
+});
+
 
 
 ///////////////////////////////////////////////////////////////
