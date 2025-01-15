@@ -8,10 +8,12 @@ import { DeleteModal } from "./Modal/DeleteModal";
 import { MainOptionModal } from "./Modal/MainOptionModal";
 import { EditPost } from "./Modal/EditPost";
 import { WebViewerModal } from "./WebViewer";
-
+import { getHeartReact } from "../../services/itemServices";
+import { useAuth } from "../../AutContext";
 
 const Post = ({ post }) => {
   const {title, repositoryURL, files, uploadDate, filename, userPicture, userName } = post;
+  const [isUser, setIsUser] = useState({ googleId: "" });
   const [showComment, setShowComment] = useState(false);
   const [isHeartCount, setIsHeartCount] = useState(0);
   const [openModal, setOpenModal] = useState(false);
@@ -19,6 +21,17 @@ const Post = ({ post }) => {
   const [editPost, setEditPost] = useState(false);
   const [webOpen, setWebOpen] = useState(false);
   const [isPlay, setPlay] = useState(false);
+  const { user } = useAuth();
+
+// users aunthenticate
+const userID = user?.userId;
+// const currentUserPicture = user?.userPicture;
+// const currentUserName = user?.userName;
+  useEffect(()=>{
+    setIsUser((prev) => ({
+      ...prev, googleId: userID || '' 
+    }));
+  }, [userID]);
  
   const currentRef = useRef(null);
 
@@ -166,16 +179,21 @@ const Post = ({ post }) => {
     setShowComment((prev) => !prev);
   };
 
-  // Handle Submit for User Heart Reactions // 
-  async function HandleClickHeart(){
+  // Handle Submit for User Heart Reactions 
+  async function HandleClickHeart() {
+    
     try {
-        const response = await fetch('http://localhost:5000/heart/api');
-        setIsHeartCount()
-        console.log(response);
+        const response = await getHeartReact(isHeartCount, isUser);
+        if (response) {
+            setIsHeartCount(isHeartCount + 1);
+            console.log(response.message);
+        }
     } catch (error) {
-      console.error({message: 'Error no reaction', error});
+        console.error("Failed to handle heart click:", error.message);
     }
-  }
+}
+
+
 
   return (
     <div className="max-w-2xl h-auto border rounded-lg p-3 mb-4 bg-white shadow-md relative">
@@ -238,8 +256,8 @@ const Post = ({ post }) => {
           
           {/* Heart Reactions */}
       <div className="flex justify-evenly mt-4">
-        <button
-          onClick={() => setIsHeartCount(isHeartCount + 1)}
+      <button
+          onClick={HandleClickHeart}
           className="like-button bg-blue-500 text-white px-3 py-1 rounded mr-2"
         >
           <div className="flex justify-evenly items-center gap-2">
@@ -248,6 +266,7 @@ const Post = ({ post }) => {
           </div>
         </button>
 
+          {/* Feedback */}
         <button
           onClick={handleFeedbackToggle}
           className="bg-blue-500 text-white px-3 py-1 rounded mr-2"
@@ -258,6 +277,7 @@ const Post = ({ post }) => {
           </div>
         </button>
 
+          {/* Request to connect */}
         <button
           type="submit"
           className="bg-blue-500 text-white px-3 py-1 rounded mr-2"
@@ -269,6 +289,7 @@ const Post = ({ post }) => {
         </button>
       </div>
 
+          {/* Feedback */}
       {showComment && (
         <div className="mt-4">
           <h4 className="font-bold mb-2">Feedback</h4>

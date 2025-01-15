@@ -28,6 +28,18 @@ export const getAuth_user = ()=> axios.get(API_Auth_User);
 const API_File = 'http://localhost:5000/api/stats';
 export const getFiles = ()=> axios.post(API_File);
 
+// API for user reactions
+const API_HeartReaction = 'http://localhost:5000/api/heart';
+export const getHeartReact = async (userReaction, userId) => {
+    try {
+        const response = await axios.post(API_HeartReaction, { userReaction, userId });
+        return response.data; 
+    } catch (error) {
+        console.error('API call failed:', error.message);
+        throw new Error(error.response?.data?.message || 'Failed to react.');
+    }
+};
+
 // Api for dataset
 const API_Url_Items = 'http://localhost:5000/api/items';
 export const getItems = ()=> axios.get(API_Url_Items);
